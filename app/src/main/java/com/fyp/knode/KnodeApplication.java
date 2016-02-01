@@ -11,6 +11,7 @@ import com.parse.ParseObject;
  * A custom application class is a best place custom command just like using API's
  */
 public class KnodeApplication extends Application {
+
     public void OnCreate(){
         super.onCreate();
         Parse.enableLocalDatastore(this);

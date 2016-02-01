@@ -7,5 +7,10 @@
     <string name="login_button_label">Log in</string>
     <string name="sign_up_button">Register</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
-    <string name="prompt_email">Email Address</string>
+    <string name="prompt_email">Email address</string>
+    <string name="signup_error_message">Please enter try again</string>
+    <string name="signup_error_title">Opps, something went wrong</string>
+    <string name="login_error_message">Please enter correct details</string>
+    <string name="login_error_title">Opps, something went wrong</string>
+
 </resources>
