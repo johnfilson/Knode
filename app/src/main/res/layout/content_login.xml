@@ -40,6 +40,16 @@
             android:text="@string/login_button_label"
             android:id="@+id/loginButton" />
 
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/fbLoginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:nestedScrollingEnabled="false"
+            android:onClick="signIn" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
