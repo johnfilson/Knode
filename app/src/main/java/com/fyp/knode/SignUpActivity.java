@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -25,6 +26,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
@@ -53,13 +55,16 @@ public class SignUpActivity extends AppCompatActivity {
                     dialog.show();
                 }
                 else{
+                    setProgressBarIndeterminateVisibility(true);
                     ParseUser newUser = new ParseUser();
                     newUser.setUsername(username);
                     newUser.setPassword(password);
                     newUser.setEmail(email);
+
                     newUser.signUpInBackground(new SignUpCallback() {
                         @Override
                         public void done(ParseException e) {
+                            setProgressBarIndeterminateVisibility(false);
                             if(e == null){
                                 Intent intent = new Intent(SignUpActivity.this,MainActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
