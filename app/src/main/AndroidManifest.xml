@@ -45,6 +45,9 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             android:parentActivityName=".LoginActivity"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="5c041efd33511746384da22f00be5f551a5e869c" />
     </application>
 
 </manifest>

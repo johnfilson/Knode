@@ -13,6 +13,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -20,7 +21,14 @@ import com.facebook.GraphResponse;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import org.json.JSONObject;
 
@@ -35,11 +43,16 @@ public class LoginActivity extends AppCompatActivity {
     ArrayList<String> userPermission = new ArrayList<>();
     protected String mFullname;
     private String mFBEmail;
+    private TwitterLoginButton loginButton;
+    ArrayList <String> getUserPermission = new ArrayList();
+
 
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
+        loginButton.onActivityResult(requestCode, resultCode, data);
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +65,9 @@ public class LoginActivity extends AppCompatActivity {
         userPermission.add("user_friends");
         userPermission.add("public_profile");
         userPermission.add("email");
+
+
+
 
         mSignUpTextView = (TextView) findViewById(R.id.signUpLabel);
         mSignUpTextView.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +118,49 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+        twitterLogIn();
+
     }
+
+    private void twitterLogIn() {
+        loginButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
+        loginButton.setCallback(new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                // The TwitterSession is also available through:
+                Twitter.getInstance().core.getSessionManager().getActiveSession();
+                TwitterSession session = result.data;
+
+
+                getUserPermission.add(session.getUserId() + "");
+                getUserPermission.add(session.getUserName());
+                getUserPermission.add(session.getAuthToken() + "");
+                getUserPermission.add("2eoCW3AZW0UnUvYX65RwoEtEg5t24ivmDpbrjGdn6S3QHMclwq");
+                ParseTwitterUtils.logIn(LoginActivity.this, new LogInCallback() {
+                    @Override
+                    public void done(ParseUser user ,ParseException err) {
+                        if (user == null) {
+                            Log.d("MyApp", "Uh oh. The user cancelled the Twitter login.");
+                        } else if (user.isNew()) {
+                            user.setUsername(getUserPermission.get(2));
+                            successfulLogIn();
+                            Log.d("MyApp", "User signed up and logged in through Twitter!");
+                        } else {
+                            user.setUsername(getUserPermission.get(2));
+                            successfulLogIn();
+                            Log.d("MyApp", "User logged in through Twitter!");
+                        }
+                    }
+                });
+
+            }
+            @Override
+            public void failure(TwitterException exception) {
+                Log.d("TwitterKit", "Login with Twitter failure", exception);
+            }
+        });
+    }
+
 
     private void successfulLogIn() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -111,22 +169,19 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //Facebook log on
-    public void signIn(View v){
-
+    //Facebook Log on and Sign up
+    public void signInWithFB(View v){
         ParseFacebookUtils.logInWithReadPermissionsInBackground(this, userPermission, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
-                if(user == null){
+                if (user == null) {
                     Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
-                }
-                else if(user.isNew()){
+                } else if (user.isNew()) {
                     Log.d("MyApp", "User signed up and logged in through Facebook!");
                     getUsersInformation();
                     user.setEmail(mFBEmail);
                     successfulLogIn();
-                }
-                else {
+                } else {
                     Log.d("MyApp", "User logged in through Facebook!");
                     getUsersInformation();
                     successfulLogIn();
@@ -148,7 +203,6 @@ public class LoginActivity extends AppCompatActivity {
                 }catch (Exception e){
                     Log.d("Exeception ---->", e.getMessage());
                 }
-
             }
         });
 
@@ -158,4 +212,8 @@ public class LoginActivity extends AppCompatActivity {
         request.executeAsync();
 
     }
+
+    //Twitter Log on and Sign up
+
+    
 }

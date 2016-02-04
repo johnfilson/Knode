@@ -1,4 +1,14 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 23
@@ -19,7 +29,8 @@ android {
         }
     }
 }
-repositories { mavenCentral() }
+repositories { mavenCentral()
+    maven { url 'https://maven.fabric.io/public' } }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -31,4 +42,7 @@ dependencies {
     compile 'com.parse:parsefacebookutils-v4-android:1.10.3@aar'
     compile 'com.parse:parsetwitterutils-android:1.10.+'
     compile 'com.facebook.android:facebook-android-sdk:4.6.0'
+    compile('com.twitter.sdk.android:twitter:1.12.0@aar') {
+        transitive = true;
+    }
 }
