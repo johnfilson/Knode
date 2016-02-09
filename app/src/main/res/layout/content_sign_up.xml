@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.fyp.knode.SignUpActivity"
+    tools:context=".ui.SignUpActivity"
     tools:showIn="@layout/activity_sign_up">
 
     <LinearLayout
@@ -46,6 +46,8 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#00bfa5"
+            android:textColor="@android:color/white"
             android:text="@string/sign_up_button"
             android:id="@+id/signUpButton" />
 

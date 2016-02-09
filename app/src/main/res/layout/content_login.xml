@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.fyp.knode.LoginActivity"
+    tools:context=".ui.LoginActivity"
     tools:showIn="@layout/activity_login">
 
     <LinearLayout
@@ -39,6 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/login_button_label"
+            android:background="#00bfa5"
+            android:textColor="@android:color/white"
             android:id="@+id/loginButton" />
 
         <com.facebook.login.widget.LoginButton
@@ -69,7 +71,9 @@
             android:id="@+id/signUpLabel"
             android:layout_gravity="center_horizontal"
             android:textSize="24sp"
-            android:layout_margin="69dp"/>
+            android:layout_margin="69dp"
+            android:textColor="@android:color/darker_gray"
+            android:textColorHint="@android:color/holo_blue_bright" />
 
     </LinearLayout>
 

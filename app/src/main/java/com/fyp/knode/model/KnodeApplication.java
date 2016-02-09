@@ -1,4 +1,4 @@
-package com.fyp.knode;
+package com.fyp.knode.model;
 
 import android.app.Application;
 
