@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.fyp.knode.Adapter.SectionsPagerAdapter;
 import com.fyp.knode.SlidingTabStrip.SlidingTabLayout;
+import com.parse.ParseUser;
 
 public class Messager extends AppCompatActivity {
 
@@ -78,9 +79,11 @@ public class Messager extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_logout){
+            ParseUser.logOut();
+           //TODO navigateToLogIn();
         }
+
 
         return super.onOptionsItemSelected(item);
     }

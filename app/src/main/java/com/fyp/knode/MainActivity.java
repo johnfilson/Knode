@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity  {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+
     }
 
     @Override
@@ -68,6 +69,9 @@ public class MainActivity extends AppCompatActivity  {
         if (id == R.id.action_logout){
             ParseUser.logOut();
             navigateToLogIn();
+         }else if(id == R.id.action_add_friend) {
+            Intent intent = new Intent(this, EditContactsActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
