@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 
 import com.fyp.knode.Adapter.SectionsPagerAdapter;
 import com.fyp.knode.SlidingTabStrip.SlidingTabLayout;
@@ -24,17 +25,18 @@ public class Messager extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
     CharSequence mTitles[]={"Messager","Contacts"};
     int mNumberOfLabs =2;
     SlidingTabLayout mTabs;
 
+    /**
+     * The {@link ViewPager} that will host the section contents.
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+    requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inbox);
 
@@ -58,7 +60,6 @@ public class Messager extends AppCompatActivity {
                 return getResources().getColor( R.color.tabScrllColr, i);
             }
         });*/
-
 
         mTabs.setViewPager(mViewPager);
     }
@@ -88,8 +89,5 @@ public class Messager extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
 }
 
