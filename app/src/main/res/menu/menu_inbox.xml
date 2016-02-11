@@ -1,11 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.fyp.knode.MainActivity">
+    tools:context=".Messager">
 
     <item android:id="@+id/action_logout"
         android:title="@string/menu_log_out_label"/>
-    <item android:id="@+id/action_add_friend"
-        android:title="@string/add_friends"/>
+
 
 </menu>

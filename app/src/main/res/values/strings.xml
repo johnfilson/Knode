@@ -15,4 +15,15 @@
     <string name="menu_log_out_label">Log Out</string>
     <string name="facebook_app_id">1130958326914434</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_inbox">inbox</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="view_inbox">Inbox</string>
+    <string name="no_messages">No messages</string>
+    <string name="no_contacts">Get connect people</string>
+    <string name="add_friends">Edit Friends</string>
+    <string name="title_activity_edit_friend">Edit Friend</string>
+    <string name="something_went_wrong">It something has gone wrong</string>
+
 </resources>
