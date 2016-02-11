@@ -1,4 +1,4 @@
-package com.fyp.knode;
+package com.fyp.knode.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.Window;
 
 import com.fyp.knode.Adapter.SectionsPagerAdapter;
+import com.fyp.knode.R;
 import com.fyp.knode.SlidingTabStrip.SlidingTabLayout;
 import com.parse.ParseUser;
 

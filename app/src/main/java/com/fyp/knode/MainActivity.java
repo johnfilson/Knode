@@ -19,10 +19,10 @@ import android.widget.Toast;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.fyp.knode.ui.LoginActivity;
+import com.fyp.knode.ui.Messager;
 import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity  {
-
     private static final String TAG =MainActivity.class.getSimpleName();
     private Button mViewInbox;
     private ListView mDrawerList;
@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity  {
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +55,7 @@ public class MainActivity extends AppCompatActivity  {
             navigateToLogIn();
         }else {
             Log.i(TAG, currentUser.getUsername());
-
         }
-
-
         addDrawerItems();
         setupDrawer();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -81,30 +77,31 @@ public class MainActivity extends AppCompatActivity  {
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                switch (position){
-                    case 0:
+                switch (position) {
+                    case 0:{
                         Toast.makeText(MainActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
-                    case 1:
+                    }
+                    case 1:{
                         Intent intent = new Intent(MainActivity.this, Messager.class);
-                        startActivity(intent);
-                    case 2:
+                        startActivity(intent);}
+                    case 2:{
                         Toast.makeText(MainActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
+                    }
                 }
+
             }
         });
     }
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.string.drawer_open, R.string.drawer_close) {
-
+                R.string.drawer_open, R.string.drawer_close)
+        {
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 getSupportActionBar().setTitle(R.string.drawer_navi_title);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
-
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
@@ -115,7 +112,6 @@ public class MainActivity extends AppCompatActivity  {
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -126,16 +122,12 @@ public class MainActivity extends AppCompatActivity  {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -150,14 +142,12 @@ public class MainActivity extends AppCompatActivity  {
             Intent intent = new Intent(this, EditContactsActivity.class);
             startActivity(intent);
         }
-
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
     @Override
     protected void onResume() {
         super.onResume();

@@ -54,7 +54,7 @@
             android:value="5c041efd33511746384da22f00be5f551a5e869c" />
 
         <activity
-            android:name=".Messager"
+            android:name=".ui.Messager"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
