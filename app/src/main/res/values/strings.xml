@@ -25,5 +25,14 @@
     <string name="add_friends">Edit Friends</string>
     <string name="title_activity_edit_friend">Edit Friend</string>
     <string name="something_went_wrong">It something has gone wrong</string>
+    <string-array name="Array">
+        <item>Baseball</item>
+        <item>Basketball</item>
+        <item>Boxing</item>
+        <item>Bowling</item>
+    </string-array>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="drawer_navi_title">Navigation!</string>
 
 </resources>
