@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.fyp.knode.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:context="com.fyp.knode.ui.EventsListActivity"
+    tools:showIn="@layout/activity_events_list">
 
     <android.support.v4.widget.DrawerLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,5 +23,22 @@
             android:textFilterEnabled="true" />
     </android.support.v4.widget.DrawerLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Events List "
+        android:id="@+id/EventListLabel"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="42dp"
+        android:textSize="24sp" />
 
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_below="@+id/EventListLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

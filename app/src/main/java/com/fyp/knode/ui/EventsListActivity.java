@@ -1,31 +1,25 @@
-package com.fyp.knode;
+package com.fyp.knode.ui;
 
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.facebook.appevents.AppEventsLogger;
-import com.fyp.knode.ui.ContactUsActivity;
-import com.fyp.knode.ui.EventsListActivity;
-import com.fyp.knode.ui.LoginActivity;
-import com.fyp.knode.ui.Messager;
-import com.parse.ParseUser;
+import com.fyp.knode.R;
 
-public class MainActivity extends AppCompatActivity  {
-    private static final String TAG =MainActivity.class.getSimpleName();
+public class EventsListActivity extends AppCompatActivity {
+    private static final String TAG =EventsListActivity.class.getSimpleName();
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -35,39 +29,22 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_events_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-
         mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
 
-
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        if(currentUser== null) {
-            navigateToLogIn();
-        } else {
-            Log.i(TAG, currentUser.getUsername());
-        }
         addDrawerItems();
         setupDrawer();
-
     }
-
-    private void navigateToLogIn() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
     private void addDrawerItems() {
-        String[] osArray = { "Event" ,"Message", "Contact Us" };
+        String[] osArray = { "Profile" ,"Message", "Contact Us" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -76,17 +53,17 @@ public class MainActivity extends AppCompatActivity  {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case(0):
-                        Intent event = new Intent(MainActivity.this, EventsListActivity.class);
-                        startActivity(event);
-                    break;
+                        Intent intent = new Intent(EventsListActivity.this, EventsListActivity.class);
+                        startActivity(intent);
+                        break;
                     case(1):
-                        Intent inbox = new Intent(MainActivity.this, Messager.class);
+                        Intent inbox = new Intent(EventsListActivity.this, Messager.class);
                         startActivity(inbox);
                         break;
                     case (2):
-                        Intent contact = new Intent(MainActivity.this, ContactUsActivity.class);
+                        Intent contact = new Intent(EventsListActivity.this, ContactUsActivity.class);
                         startActivity(contact);
-                    break;
+                        break;
                 }
 
             }
@@ -128,30 +105,9 @@ public class MainActivity extends AppCompatActivity  {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        if (id == R.id.action_logout){
-            ParseUser.logOut();
-            navigateToLogIn();
-        }else if(id == R.id.action_add_contacts) {
-            Intent intent = new Intent(this, EditContactsActivity.class);
-            startActivity(intent);
-        }
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
         return super.onOptionsItemSelected(item);
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Logs 'install' and 'app activate' App Events.
-        AppEventsLogger.activateApp(this);
     }
 }

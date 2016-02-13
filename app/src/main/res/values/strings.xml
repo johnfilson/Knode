@@ -34,5 +34,11 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="drawer_navi_title">Navigation!</string>
+    <string name="title_activity_contact_us">ContactUsActivity</string>
+    <string name="we_can_help_label">We can Help!</string>
+    <string name="your_name_label">Your Name</string>
+    <string name="title_activity_events_list">EventsListActivity</string>
+    <string name="tab_title_messager">Messager</string>
+    <string name="tab_title_contact">Contacts</string>
 
 </resources>

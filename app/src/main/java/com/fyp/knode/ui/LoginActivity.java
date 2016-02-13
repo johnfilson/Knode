@@ -35,6 +35,7 @@ import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final  String TAG = LoginActivity.class.getSimpleName() ;
     protected TextView mSignUpTextView;
     protected EditText mUsername;
     protected EditText  mPassword;
@@ -135,17 +136,18 @@ public class LoginActivity extends AppCompatActivity {
                 getUserPermission.add(session.getUserName());
                 getUserPermission.add(session.getAuthToken() + "");
                 getUserPermission.add("2eoCW3AZW0UnUvYX65RwoEtEg5t24ivmDpbrjGdn6S3QHMclwq");
+                Log.i(TAG, getUserPermission +"" );
                 ParseTwitterUtils.logIn(LoginActivity.this, new LogInCallback() {
                     @Override
-                    public void done(ParseUser user ,ParseException err) {
+                    public void done(ParseUser user, ParseException err) {
                         if (user == null) {
                             Log.d("MyApp", "Uh oh. The user cancelled the Twitter login.");
                         } else if (user.isNew()) {
-                            user.setUsername(getUserPermission.get(2));
+                            user.setUsername(getUserPermission.get(1));
                             successfulLogIn();
                             Log.d("MyApp", "User signed up and logged in through Twitter!");
                         } else {
-                            user.setUsername(getUserPermission.get(2));
+                            user.setUsername(getUserPermission.get(1));
                             successfulLogIn();
                             Log.d("MyApp", "User logged in through Twitter!");
                         }
@@ -173,11 +175,14 @@ public class LoginActivity extends AppCompatActivity {
         ParseFacebookUtils.logInWithReadPermissionsInBackground(this, userPermission, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
+                Log.i(TAG, user.getUsername());
+                Log.i(TAG, userPermission+ "");
                 if (user == null) {
                     Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
                 } else if (user.isNew()) {
                     Log.d("MyApp", "User signed up and logged in through Facebook!");
                     getUsersInformation();
+                    user.setUsername(mFullname.trim());
                     user.setEmail(mFBEmail);
                     successfulLogIn();
                 } else {

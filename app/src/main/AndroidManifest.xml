@@ -67,6 +67,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.knode.MainActivity" />
         </activity>
+        <activity
+            android:name=".ui.ContactUsActivity"
+            android:label="@string/title_activity_contact_us"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.knode.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ui.EventsListActivity"
+            android:label="@string/title_activity_events_list"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.knode.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

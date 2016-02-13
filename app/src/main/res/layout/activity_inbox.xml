@@ -9,6 +9,7 @@
     tools:context=".ui.Messager"
     android:orientation="vertical">
 
+
     <include
         android:id="@+id/tool_bar"
         layout="@layout/tool_bar"

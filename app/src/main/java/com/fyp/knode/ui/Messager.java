@@ -27,7 +27,7 @@ public class Messager extends AppCompatActivity {
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    CharSequence mTitles[]={"Messager","Contacts"};
+    CharSequence mTitles[]={"Messager","My Contacts"};
     int mNumberOfLabs =2;
     SlidingTabLayout mTabs;
 
@@ -43,6 +43,9 @@ public class Messager extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(this,mTitles ,mNumberOfLabs,getSupportFragmentManager());
