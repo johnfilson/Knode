@@ -1,7 +1,10 @@
 package com.fyp.knode;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -75,18 +78,18 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
-                    case(0):
+                    case (0):
                         Intent event = new Intent(MainActivity.this, EventsListActivity.class);
                         startActivity(event);
-                    break;
-                    case(1):
+                        break;
+                    case (1):
                         Intent inbox = new Intent(MainActivity.this, Messager.class);
                         startActivity(inbox);
                         break;
                     case (2):
                         Intent contact = new Intent(MainActivity.this, ContactUsActivity.class);
                         startActivity(contact);
-                    break;
+                        break;
                 }
 
             }
@@ -154,4 +157,7 @@ public class MainActivity extends AppCompatActivity  {
         // Logs 'install' and 'app activate' App Events.
         AppEventsLogger.activateApp(this);
     }
+
+
+
 }

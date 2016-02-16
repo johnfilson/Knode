@@ -40,5 +40,16 @@
     <string name="title_activity_events_list">EventsListActivity</string>
     <string name="tab_title_messager">Messager</string>
     <string name="tab_title_contact">Contacts</string>
+    <string name="no_event_data">There is no event data to load</string>
+    <string name="no_network_available">There is no network available</string>
+    <string name="join_label">Join</string>
+    <string name="title_activity_create_event">CreateEventActivity</string>
+    <string name="createEventTitleLabel">Create an Event</string>
+    <string name="name_of_event">Name of Event</string>
+    <string name="description_label">Description (50 characters max)</string>
+    <string name="hashtag_event_label">Hashtags to describe event</string>
+    <string name="attendees_max_label">Attendees (number of attendees)</string>
+    <string name="people_whom_network">People who should network</string>
+    <string name="publishButton">Publish</string>
 
 </resources>

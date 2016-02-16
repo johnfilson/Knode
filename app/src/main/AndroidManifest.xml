@@ -85,6 +85,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.knode.MainActivity" />
         </activity>
+        <activity
+            android:name=".ui.CreateEventActivity"
+            android:label="@string/title_activity_create_event"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.knode.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
