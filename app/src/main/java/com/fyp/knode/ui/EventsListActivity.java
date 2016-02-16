@@ -15,8 +15,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.fyp.knode.Adapter.EventAdapter;
 import com.fyp.knode.R;
+import com.fyp.knode.model.Event;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class EventsListActivity extends AppCompatActivity {
     private static final String TAG =EventsListActivity.class.getSimpleName();
@@ -25,6 +31,10 @@ public class EventsListActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
+    private Event [] mEvent;
+
+    @Bind(android.R.id.list) ListView mListView;
+    @Bind(android.R.id.empty) TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +42,7 @@ public class EventsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_events_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -42,6 +53,10 @@ public class EventsListActivity extends AppCompatActivity {
 
         addDrawerItems();
         setupDrawer();
+        EventAdapter adapter = new EventAdapter(this,mEvent );
+        mListView.setAdapter(adapter);
+        mListView.setEmptyView(mTextView);
+
     }
     private void addDrawerItems() {
         String[] osArray = { "Profile" ,"Message", "Contact Us" };

@@ -51,5 +51,6 @@
     <string name="attendees_max_label">Attendees (number of attendees)</string>
     <string name="people_whom_network">People who should network</string>
     <string name="publishButton">Publish</string>
+    <string name="createEvent_error_message">Please create event the</string>
 
 </resources>
