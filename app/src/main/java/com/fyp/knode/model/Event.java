@@ -3,110 +3,84 @@ package com.fyp.knode.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.EventObject;
 
 /**
  * Created by Johnny on 15/02/2016.
  */
-public class Event implements Parcelable {
-
-    private String mSummary;
+@ParseClassName("EventObject")
+public class Event extends ParseObject implements Parcelable {
     private String mIcon;
-    private String mOrganisesName;
     private String mLocation;
     private Double mTime;
-    private String mEventName;
-    private String mHashtags;
-    private String mMaxAttendees;
 
+    private  String mEventName = getEventName();
+    private String mOrganiserName = getOrganisesName();
+    public Event() {}
 
-    ParseObject eventInfo = new ParseObject("EventObject");
-
-    public ParseObject getEventInfo() {
-        eventInfo.put("organiserName", getOrganisesName());
-        eventInfo.put("description", getSummary());
-        eventInfo.put("eventName",getEventName());
-        eventInfo.put("hashTag", getHashtags());
-        eventInfo.put("maxAttend", getMaxAttendees());
-        return eventInfo;
-    }
 
     public String getEventName() {
-        return mEventName;
+        return getString("eventName");
     }
-
     public void setEventName(String mEventName) {
-        this.mEventName = mEventName;
-    }
-
-    public String getLocation() {
-        return mLocation;
-    }
-
-    public void setLocation(String mLocation) {
-        this.mLocation = mLocation;
-    }
-
-    public Double getTime() {
-        return mTime;
-    }
-
-    public void setTime(Double mTime) {
-        this.mTime = mTime;
+         put("eventName", mEventName)  ;
     }
 
     public String getOrganisesName() {
-        return mOrganisesName;
+        return getString("organiserName");
     }
-
     public void setOrganisesName(String mOrganisesName) {
-        this.mOrganisesName = mOrganisesName;
+         put("organiserName", mOrganisesName);
     }
 
     public String getSummary() {
-        return mSummary;
+        return getString("description");
     }
-
-    public void setSummary(String mSummary) {
-        this.mSummary = mSummary;
-    }
-
-    public String getIcon() {
-        return mIcon;
-    }
-
-    public void setIcon(String mIcon) {
-        this.mIcon = mIcon;
+    public void setSummary(String mSummary)
+    {
+        put("description", mSummary);
     }
 
     public String getHashtags() {
-        return mHashtags;
+        return getString("hashTag");
     }
-
     public void setHashtags(String mHashtags) {
-        this.mHashtags = mHashtags;
+        put("hashTag", mHashtags);
     }
 
-    public Event(){}
+    public String getMaxAttendees() {
+        return getString("maxAttend");
+    }
+    public void setMaxAttendees(String mMaxAttendees) {
+        put("maxAttend", mMaxAttendees);
+    }
+
+    public String getPeopleWhomShouldAttend() {
+        return getString("peopleWhomShouldAttend");
+    }
+    public void setPeopleWhomShouldAttend(String peopleWhomShouldAttend) {
+        put("peopleWhomMayAttend",peopleWhomShouldAttend);
+    }
+
+
 
     @Override
     public int describeContents() {
         return 0;
     }
-
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mEventName);
-        dest.writeString(mOrganisesName);
-        dest.writeString(mSummary);
-        dest.writeString(mHashtags + "");
+        dest.writeString(mOrganiserName);
     }
 
-    private Event (Parcel in) {
-        mEventName =in.readString();
-        mHashtags= in.readString();
-        mOrganisesName = in.readString();
-        mSummary = in.readString();
+    private  Event(Parcel in) {
+        mEventName = in.readString();
+        mOrganiserName = in.readString();
     }
 
     public static final Creator<Event> CREATOR = new Creator<Event>() {
@@ -121,12 +95,25 @@ public class Event implements Parcelable {
         }
     };
 
-
-    public String getMaxAttendees() {
-        return mMaxAttendees;
+    //TODO Time, Location and Icon
+    /*public String getLocation() {
+        return mLocation;
     }
-
-    public void setMaxAttendees(String mMaxAttendees) {
-        this.mMaxAttendees = mMaxAttendees;
+    public void setLocation(String mLocation) {
+        this.mLocation = mLocation;
     }
+    public Double getTime() {
+        return mTime;
+    }
+    public void setTime(Double mTime) {
+        this.mTime = mTime;
+    }
+    public String getIcon() {
+        return mIcon;
+    }
+    public void setIcon(String mIcon) {
+        this.mIcon = mIcon;
+    }*/
 }
+
+

@@ -1,6 +1,7 @@
 package com.fyp.knode.ui;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,8 @@ import android.widget.EditText;
 
 import com.fyp.knode.R;
 import com.fyp.knode.model.Event;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -47,7 +50,8 @@ public class CreateEventActivity extends AppCompatActivity {
                 String attendeeMax = mAttendeesMax.getText() + "";
                 String hashTag = mHashTag.getText() + "";
                 String peopleWhomMayAttend =mPeopleWhomAttend.getText().toString();
-                if (nameOfEvent.isEmpty() || description.isEmpty() || attendeeMax.isEmpty()) {
+                if (nameOfEvent.isEmpty() || description.isEmpty() || attendeeMax.isEmpty()
+                        || hashTag.isEmpty() || peopleWhomMayAttend.isEmpty()) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(CreateEventActivity.this);
                     builder.setMessage(R.string.createEvent_error_message)
                             .setTitle(R.string.login_error_title)
@@ -55,14 +59,17 @@ public class CreateEventActivity extends AppCompatActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 } else{
-                    Event event = new Event();
-                    event.setEventName(nameOfEvent);
-                    event.setSummary(description);
-                    event.setHashtags(hashTag);
-                    event.setMaxAttendees(attendeeMax);
-
+                    ParseObject eventInfo = new ParseObject("EventObject");
+                    eventInfo.put("organiserName", ParseUser.getCurrentUser().getUsername());
+                    eventInfo.put("description", description);
+                    eventInfo.put("eventName", nameOfEvent);
+                    eventInfo.put("hashTag", hashTag);
+                    eventInfo.put("maxAttend", attendeeMax);
+                    eventInfo.put("peopleWhomMayAttend", peopleWhomMayAttend);
+                    eventInfo.saveInBackground();
+                    Intent intent = new Intent(CreateEventActivity.this, EventsListActivity.class);
+                    startActivity(intent);
                 }
-
 
             }
         });

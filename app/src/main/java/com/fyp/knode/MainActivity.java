@@ -1,10 +1,7 @@
 package com.fyp.knode;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,12 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.facebook.appevents.AppEventsLogger;
+import com.fyp.knode.model.Event;
 import com.fyp.knode.ui.ContactUsActivity;
+import com.fyp.knode.ui.CreateEventActivity;
 import com.fyp.knode.ui.EventsListActivity;
 import com.fyp.knode.ui.LoginActivity;
 import com.fyp.knode.ui.Messager;
@@ -29,6 +26,8 @@ import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity  {
     private static final String TAG =MainActivity.class.getSimpleName();
+    public static final String KNODE_EVENTS = "KNODE_EVENTS";
+
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -45,12 +44,9 @@ public class MainActivity extends AppCompatActivity  {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-
         mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
-
-
         ParseUser currentUser = ParseUser.getCurrentUser();
         if(currentUser== null) {
             navigateToLogIn();
@@ -70,7 +66,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     private void addDrawerItems() {
-        String[] osArray = { "Event" ,"Message", "Contact Us" };
+        String[] osArray = { "Event" ,"Message", "Contact Us", "Create Events" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -89,6 +85,10 @@ public class MainActivity extends AppCompatActivity  {
                     case (2):
                         Intent contact = new Intent(MainActivity.this, ContactUsActivity.class);
                         startActivity(contact);
+                        break;
+                    case (3):
+                        Intent createEvent = new Intent(MainActivity.this, CreateEventActivity.class);
+                        startActivity(createEvent);
                         break;
                 }
 
