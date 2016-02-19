@@ -95,24 +95,6 @@ public class Messager extends AppCompatActivity {
                         File mediaStrorage = new File(
                                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
                                 appName);
-                        Log.d(TAG, ">> Let's debug why this directory isn't being created: ");
-                        Log.d(TAG, "Is it working?: " + mediaStrorage.mkdirs());
-                        Log.d(TAG, "Is it available?: " + isExternalStorageAvailable());
-                        Log.d(TAG, "Does it exist?: " + mediaStrorage.exists());
-                        Log.d(TAG, "What is the full URI?: " + mediaStrorage.toURI());
-                        Log.d(TAG, "--");
-                        Log.d(TAG, "Can we write to this file?: " + mediaStrorage.canWrite());
-                        if (!mediaStrorage.canWrite()) {
-                            Log.d(TAG, ">> We can't write! Do we have WRITE_EXTERNAL_STORAGE permission?");
-                            if (getBaseContext().checkCallingOrSelfPermission("android.permission.WRITE_EXTERNAL_STORAGE") == PackageManager.PERMISSION_DENIED) {
-                                Log.d(TAG, ">> We don't have permission to write - please add it.");
-                            } else {
-                                Log.d(TAG, "We do have permission - the problem lies elsewhere.");
-                            }
-                        }
-                        Log.d(TAG, "Are we even allowed to read this file?: " + mediaStrorage.canRead());
-                        Log.d(TAG, "--");
-                        Log.d(TAG, ">> End of debugging.");
                         if(!mediaStrorage.exists()){
                             if(!mediaStrorage.mkdir()){
                                 Log.e(TAG, "Fail to created Directory");
