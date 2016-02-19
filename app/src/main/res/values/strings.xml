@@ -54,5 +54,6 @@
     <string name="createEvent_error_message">Please create event the</string>
     <string name="camera_item">Camera</string>
     <string name="error_with_external_storage">Problem when locating storage on your devices</string>
+    <string name="knode_general_error">Sorry, there was an error</string>
 
 </resources>

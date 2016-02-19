@@ -70,19 +70,30 @@ public class Messager extends AppCompatActivity {
 
                     switch (which) {
                         case 0:
-                            Intent takepicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             mMediaUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
                             if(mMediaUri == null){
                                 Toast.makeText(Messager.this, R.string.error_with_external_storage, Toast.LENGTH_LONG).show();
                             }else {
-                                takepicture.putExtra(MediaStore.EXTRA_OUTPUT, mMediaUri);
-                                startActivityForResult(takepicture, Constants.KEY_TAKE_PICTURE_RESPONSE);
+                                takePicture.putExtra(MediaStore.EXTRA_OUTPUT, mMediaUri);
+                                startActivityForResult(takePicture, Constants.KEY_TAKE_PICTURE_RESPONSE);
                             }
                             break;
                         case 1:
-
+                            Intent takeVideo = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+                            mMediaUri = getOutputMediaFileUri(MEDIA_TYPE_VIDEO);
+                            if(mMediaUri == null){
+                                Toast.makeText(Messager.this, R.string.error_with_external_storage, Toast.LENGTH_LONG).show();
+                            }else {
+                                takeVideo.putExtra(MediaStore.EXTRA_OUTPUT, mMediaUri);
+                                takeVideo.putExtra(MediaStore.EXTRA_DURATION_LIMIT,60);
+                                //the video is kept in low quality because of retr
+                                takeVideo.putExtra(MediaStore.EXTRA_VIDEO_QUALITY,0);
+                                startActivityForResult(takeVideo, Constants.KEY_TAKE_VIDEO_RESPONES);
+                            }
                             break;
                         case 2:
+//                            Intent choosePicture = new Intent(MediaStore);
                             break;
                         case 3:
                             ;
@@ -266,6 +277,18 @@ public class Messager extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK){
+        Intent mediaScan = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            mediaScan.setData(mMediaUri);
+            sendBroadcast(mediaScan);
+        }else if(resultCode != RESULT_CANCELED){
+            Toast.makeText(Messager.this, R.string.knode_general_error, Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private void navigateToLogIn() {
         Intent intent = new Intent(this, LoginActivity.class);
