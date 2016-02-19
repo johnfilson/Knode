@@ -25,11 +25,11 @@
     <string name="add_friends">Edit Friends</string>
     <string name="title_activity_edit_friend">Edit Friend</string>
     <string name="something_went_wrong">It something has gone wrong</string>
-    <string-array name="Array">
-        <item>Baseball</item>
-        <item>Basketball</item>
-        <item>Boxing</item>
-        <item>Bowling</item>
+    <string-array name="camera_choices">
+        <item>Take picture</item>
+        <item>Take video</item>
+        <item>View picture</item>
+        <item>View video</item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
@@ -52,5 +52,7 @@
     <string name="people_whom_network">People who should network</string>
     <string name="publishButton">Publish</string>
     <string name="createEvent_error_message">Please create event the</string>
+    <string name="camera_item">Camera</string>
+    <string name="error_with_external_storage">Problem when locating storage on your devices</string>
 
 </resources>
