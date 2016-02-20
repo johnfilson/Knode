@@ -16,6 +16,8 @@ public final class Constants {
     public static final int KEY_PICK_PICTURE = 2;
     public static final int KEY_PICK_VIDEO = 3;
 
+    public static final int FILE_SIZE_LIMIT = 1024 * 1024 * 10;
+
 
 
 }

@@ -55,5 +55,8 @@
     <string name="camera_item">Camera</string>
     <string name="error_with_external_storage">Problem when locating storage on your devices</string>
     <string name="knode_general_error">Sorry, there was an error</string>
+    <string name="select_video_max_warning">Please select a video which is less than 10MB</string>
+    <string name="knode_selectedvideo_error">There was problem with the file selected</string>
+    <string name="file_overlimit_error">The selected file is to large</string>
 
 </resources>

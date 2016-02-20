@@ -32,6 +32,9 @@ import com.fyp.knode.SlidingTabStrip.SlidingTabLayout;
 import com.parse.ParseUser;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -86,17 +89,23 @@ public class Messager extends AppCompatActivity {
                                 Toast.makeText(Messager.this, R.string.error_with_external_storage, Toast.LENGTH_LONG).show();
                             }else {
                                 takeVideo.putExtra(MediaStore.EXTRA_OUTPUT, mMediaUri);
-                                takeVideo.putExtra(MediaStore.EXTRA_DURATION_LIMIT,60);
+                                takeVideo.putExtra(MediaStore.EXTRA_DURATION_LIMIT,30);
                                 //the video is kept in low quality because of retr
                                 takeVideo.putExtra(MediaStore.EXTRA_VIDEO_QUALITY,0);
                                 startActivityForResult(takeVideo, Constants.KEY_TAKE_VIDEO_RESPONES);
                             }
                             break;
                         case 2:
-//                            Intent choosePicture = new Intent(MediaStore);
+                            Intent choosePicture = new Intent(Intent.ACTION_GET_CONTENT);
+                            choosePicture.setType("image/*");
+                            startActivityForResult(choosePicture,Constants.KEY_PICK_PICTURE);
                             break;
                         case 3:
-                            ;
+                            Intent chooseVideo = new Intent(Intent.ACTION_GET_CONTENT);
+                            chooseVideo.setType("video/*");
+                            Toast.makeText(Messager.this, R.string.select_video_max_warning, Toast.LENGTH_SHORT).show();
+                            startActivityForResult(chooseVideo, Constants.KEY_PICK_VIDEO);
+                            break;
                     }
                 }
                 private Uri getOutputMediaFileUri (int mediaType){
@@ -282,9 +291,44 @@ public class Messager extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == RESULT_OK){
-        Intent mediaScan = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            mediaScan.setData(mMediaUri);
-            sendBroadcast(mediaScan);
+            if(requestCode== Constants.KEY_PICK_PICTURE || requestCode == Constants.KEY_PICK_VIDEO){
+                if(data == null){
+                    Toast.makeText(Messager.this, R.string.knode_general_error, Toast.LENGTH_SHORT).show();
+                }else {
+                    mMediaUri = data.getData();
+                }
+            }else {
+                Intent mediaScan = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                mediaScan.setData(mMediaUri);
+                sendBroadcast(mediaScan);
+            }
+
+            Log.d(TAG,"Mediastore ===" + mMediaUri);
+            if(requestCode == Constants.KEY_PICK_VIDEO){
+
+                int filesize = 0;
+                InputStream inputStream = null;
+                try {
+                   inputStream = getContentResolver().openInputStream(mMediaUri);
+                }catch (FileNotFoundException e){
+                    Toast.makeText(Messager.this, R.string.knode_selectedvideo_error, Toast.LENGTH_SHORT).show();
+                    return;
+                }catch (IOException e){
+                    Toast.makeText(Messager.this, R.string.knode_selectedvideo_error, Toast.LENGTH_SHORT).show();
+                    return;
+                }///we call this finally to close the stream and after everything is complete.
+                finally {
+                    try {
+                        inputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            if(filesize >= Constants.FILE_SIZE_LIMIT){
+                Toast.makeText(Messager.this, R.string.file_overlimit_error, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            }
         }else if(resultCode != RESULT_CANCELED){
             Toast.makeText(Messager.this, R.string.knode_general_error, Toast.LENGTH_SHORT).show();
         }
