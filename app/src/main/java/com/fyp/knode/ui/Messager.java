@@ -297,38 +297,41 @@ public class Messager extends AppCompatActivity {
                 }else {
                     mMediaUri = data.getData();
                 }
+                Log.i(TAG,"Mediastore ===" + mMediaUri);
+                if(requestCode == Constants.KEY_PICK_VIDEO){
+
+                    int filesize = 0;
+                    InputStream inputStream = null;
+                    try {
+                        inputStream = getContentResolver().openInputStream(mMediaUri);
+                    }catch (FileNotFoundException e){
+                        Toast.makeText(Messager.this, R.string.knode_selectedvideo_error, Toast.LENGTH_SHORT).show();
+                        return;
+                    }catch (IOException e){
+                        Toast.makeText(Messager.this, R.string.knode_selectedvideo_error, Toast.LENGTH_SHORT).show();
+                        return;
+                    }///we call this finally to close the stream and after everything is complete.
+                    finally {
+                        try {
+                            inputStream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if(filesize >= Constants.FILE_SIZE_LIMIT){
+                        Toast.makeText(Messager.this, R.string.file_overlimit_error, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
             }else {
                 Intent mediaScan = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                 mediaScan.setData(mMediaUri);
                 sendBroadcast(mediaScan);
             }
+            Intent chatIntent = new Intent(this, ChatActivity.class);
+            chatIntent.setData(mMediaUri);
+            startActivity(chatIntent);
 
-            Log.d(TAG,"Mediastore ===" + mMediaUri);
-            if(requestCode == Constants.KEY_PICK_VIDEO){
-
-                int filesize = 0;
-                InputStream inputStream = null;
-                try {
-                   inputStream = getContentResolver().openInputStream(mMediaUri);
-                }catch (FileNotFoundException e){
-                    Toast.makeText(Messager.this, R.string.knode_selectedvideo_error, Toast.LENGTH_SHORT).show();
-                    return;
-                }catch (IOException e){
-                    Toast.makeText(Messager.this, R.string.knode_selectedvideo_error, Toast.LENGTH_SHORT).show();
-                    return;
-                }///we call this finally to close the stream and after everything is complete.
-                finally {
-                    try {
-                        inputStream.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            if(filesize >= Constants.FILE_SIZE_LIMIT){
-                Toast.makeText(Messager.this, R.string.file_overlimit_error, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            }
         }else if(resultCode != RESULT_CANCELED){
             Toast.makeText(Messager.this, R.string.knode_general_error, Toast.LENGTH_SHORT).show();
         }

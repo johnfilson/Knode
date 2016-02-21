@@ -58,5 +58,9 @@
     <string name="select_video_max_warning">Please select a video which is less than 10MB</string>
     <string name="knode_selectedvideo_error">There was problem with the file selected</string>
     <string name="file_overlimit_error">The selected file is to large</string>
+    <string name="title_activity_chat">Chat</string>
+    <string name="choose_contact_message">Choose contact first</string>
+    <string name="error_title">Opps</string>
+    <string name="send_label">Send</string>
 
 </resources>
