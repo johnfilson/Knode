@@ -62,5 +62,8 @@
     <string name="choose_contact_message">Choose contact first</string>
     <string name="error_title">Opps</string>
     <string name="send_label">Send</string>
+    <string name="error_selecting_file">There was an error with the selected file. Please select another one</string>
+    <string name="success_message_sent">Message was sent!</string>
+    <string name="error_sending_message">There was problem sending the message. Please try again</string>
 
 </resources>

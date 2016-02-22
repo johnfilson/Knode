@@ -1,8 +1,11 @@
 package com.fyp.knode.ui;
 
+import android.app.AlertDialog;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,12 +25,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.fyp.knode.Adapter.EventAdapter;
+import com.fyp.knode.KnodeConstants.Constants;
 import com.fyp.knode.MainActivity;
 import com.fyp.knode.R;
 import com.fyp.knode.model.Event;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.ArrayList;
@@ -37,14 +44,12 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class EventsListActivity extends AppCompatActivity {
+public class EventsListActivity extends ListActivity {
     private static final String TAG =EventsListActivity.class.getSimpleName();
 
-    RecyclerView mRecyclerView;
-    RecyclerView.LayoutManager mLayoutManager;
-    RecyclerView.Adapter mAdapter;
-
-    final ArrayList<Event> mEvents = new ArrayList<>();
+    protected List<ParseObject> mUser;
+    protected ParseRelation<ParseUser> mContactRelation;
+    protected ParseObject mEvent;
 
 
 
@@ -53,15 +58,51 @@ public class EventsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
 
 
-
+        getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
     }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        mCurrentUser = ParseUser.getCurrentUser();
+//        mContactRelation = mCurrentUser.getRelation(Constants.KEY_CONTACT_RELATION);
+//
+//        setProgressBarIndeterminateVisibility(true);
+//        ParseQuery<ParseUser> query = ParseUser.getQuery();
+//        query.orderByAscending(Constants.KEY_USERNAME);
+//        query.setLimit(Constants.KEY_USER_LIMIT);
+//        query.findInBackground(new FindCallback<ParseObject>() {
+//            @Override
+//            public void done(List<ParseObject> events, ParseException e) {
+//                setProgressBarIndeterminateVisibility(false);
+//                if (e == null) {
+//                    mUser = contacts;
+//                    String[] usernames = new String[mUser.size()];
+//                    int i = 0;
+//                    for (ParseUser user : mUser) {
+//                        usernames[i] = user.getUsername();
+//                        i++;
+//                    }
+//                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(EventsListActivity.this,
+//                            android.R.layout.simple_list_item_checked,
+//                            usernames);
+//                    setListAdapter(adapter);
+//                } else {
+//                    Log.e(TAG, e.getMessage());
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(EventsListActivity.this);
+//                    builder.setMessage(e.getMessage())
+//                            .setTitle(R.string.something_went_wrong)
+//                            .setPositiveButton(android.R.string.ok, null);
+//                    AlertDialog dialog = builder.create();
+//                    dialog.show();
+//                }
+//            }
+//        });
+//    }
 
 
 

@@ -326,10 +326,20 @@ public class Messager extends AppCompatActivity {
             }else {
                 Intent mediaScan = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                 mediaScan.setData(mMediaUri);
+
                 sendBroadcast(mediaScan);
             }
             Intent chatIntent = new Intent(this, ChatActivity.class);
             chatIntent.setData(mMediaUri);
+
+            String fileType;
+            if(requestCode == Constants.KEY_PICK_PICTURE || requestCode == Constants.KEY_TAKE_PICTURE_RESPONSE){
+                fileType = Constants.TYPE_IMAGE;
+            }else {
+                fileType = Constants.TYPE_VIDEO;
+            }
+
+            chatIntent.putExtra(Constants.KEY_FILE_TYPE, fileType );
             startActivity(chatIntent);
 
         }else if(resultCode != RESULT_CANCELED){

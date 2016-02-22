@@ -2,9 +2,8 @@ package com.fyp.knode.ui;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -12,34 +11,51 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.fyp.knode.KnodeConstants.Constants;
 import com.fyp.knode.R;
+import com.fyp.knode.helper.FileHelper;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ChatActivity extends ListActivity {
+public class ChatActivity extends AppCompatActivity {
     public static final String TAG = ChatActivity.class.getSimpleName();
-    protected List<ParseUser> mUser;
+    protected List<ParseUser> mContacts;
     protected ParseRelation<ParseUser> mContactRelation;
     protected ParseUser mCurrentUser;
     protected MenuItem mSendMenuItem;
+    protected Uri mUri;
+    protected String mFileType;
+    protected ListView mList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        mList = (ListView) findViewById(R.id.list);
+        mList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        mUri = getIntent().getData();
+        mFileType = getIntent().getExtras().getString(Constants.KEY_FILE_TYPE);
     }
 
     @Override
@@ -57,18 +73,18 @@ public class ChatActivity extends ListActivity {
             public void done(List<ParseUser> contacts, ParseException e) {
                 setProgressBarIndeterminateVisibility(false);
                 if (e == null) {
-                    mUser = contacts;
-                    String[] usernames = new String[mUser.size()];
+                    mContacts = contacts;
+                    String[] usernames = new String[mContacts.size()];
                     int i = 0;
-                    for (ParseUser user : mUser) {
+                    for (ParseUser user : mContacts) {
                         usernames[i] = user.getUsername();
                         i++;
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                            (getListView().getContext(),
+                            (ChatActivity.this,
                                     android.R.layout.simple_list_item_checked,
                                     usernames);
-                    setListAdapter(adapter);
+                    mList.setAdapter(adapter);
                 } else {
                     Log.e(TAG, e.getMessage());
                     AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
@@ -77,6 +93,16 @@ public class ChatActivity extends ListActivity {
                             .setPositiveButton(android.R.string.ok, null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
+                }
+            }
+        });
+        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (mList.getCheckedItemCount() > 0) {
+                    mSendMenuItem.setVisible(true);
+                } else {
+                    mSendMenuItem.setVisible(false);
                 }
             }
         });
@@ -98,21 +124,77 @@ public class ChatActivity extends ListActivity {
 
         //noinspection SimplifiableIfStatement
         switch (id) {
-            case R.id.action_logout:
-                   break;
+            case R.id.sendQueryButton:
+                ParseObject message = createMessage();
+                if(message == null){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
+                    builder.setMessage(R.string.error_selecting_file)
+                            .setTitle(R.string.error_title)
+                            .setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+                }else {
+                    send(message);
+                    finish();
+                }
+                return  true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        if (l.getCheckedItemCount() > 0) {
 
-            mSendMenuItem.setVisible(true);
-        } else {
-            mSendMenuItem.setVisible(false);
 
+    protected ParseObject createMessage(){
+        ParseObject message = new ParseObject(Constants.CLASS_MESSAGES);
+        message.put(Constants.KEY_SENDER_ID, ParseUser.getCurrentUser().getObjectId());
+        message.put(Constants.KEY_SENDER_NAME, ParseUser.getCurrentUser().getUsername());
+        message.put(Constants.KEY_RECEIVER_ID, getReceiverId());
+        message.put(Constants.KEY_FILE_TYPE, mFileType);
+
+
+        byte[] fileBytes = FileHelper.getByteArrayFromFile(this, mUri);
+
+        if(fileBytes == null){
+            return null;
+        }else {
+            if(mFileType.equals(Constants.TYPE_IMAGE)){
+                fileBytes = FileHelper.reduceImageForUpload(fileBytes);
+            }
+
+            String fileName = FileHelper.getFileName(this, mUri, mFileType);
+            ParseFile file = new ParseFile(fileName, fileBytes);
+            message.put(Constants.KEY_FILE, file);
+            return message;
         }
+
+    }
+
+    protected ArrayList<String> getReceiverId(){
+    ArrayList<String> receiverIds= new ArrayList<String>();
+        for(int i =0 ; i < mList.getCount(); i++){
+            if(mList.isItemChecked(i)){
+                receiverIds.add(mContacts.get(i).getObjectId());
+            }
+        }
+        return receiverIds;
+    }
+
+    protected void send(ParseObject message){
+        message.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null){
+                    Toast.makeText(ChatActivity.this, R.string.success_message_sent, Toast.LENGTH_SHORT).show();
+                }else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
+                    builder.setMessage(R.string.error_sending_message)
+                            .setTitle(R.string.error_title)
+                            .setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            }
+        });
     }
 }
