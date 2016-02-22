@@ -3,8 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.Messager">
 
-    <item android:id="@+id/action_logout"
-        android:title="@string/menu_log_out_label"/>
 
+    <item android:id="@+id/action_add_contacts"
+          android:title="@string/add_friends"/>
+    <item android:id="@+id/action_logout"
+          android:title="@string/menu_log_out_label"/>
+    <item android:id="@+id/action_camera"
+          android:title="@string/camera_item"
+          android:icon="@drawable/ic_action_camera"
+          app:showAsAction="always"/>
 
 </menu>

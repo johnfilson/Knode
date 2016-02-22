@@ -25,11 +25,11 @@
     <string name="add_friends">Edit Friends</string>
     <string name="title_activity_edit_friend">Edit Friend</string>
     <string name="something_went_wrong">It something has gone wrong</string>
-    <string-array name="Array">
-        <item>Baseball</item>
-        <item>Basketball</item>
-        <item>Boxing</item>
-        <item>Bowling</item>
+    <string-array name="camera_choices">
+        <item>Take picture</item>
+        <item>Take video</item>
+        <item>View picture</item>
+        <item>View video</item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
@@ -40,5 +40,30 @@
     <string name="title_activity_events_list">EventsListActivity</string>
     <string name="tab_title_messager">Messager</string>
     <string name="tab_title_contact">Contacts</string>
+    <string name="no_event_data">There is no event data to load</string>
+    <string name="no_network_available">There is no network available</string>
+    <string name="join_label">Join</string>
+    <string name="title_activity_create_event">CreateEventActivity</string>
+    <string name="createEventTitleLabel">Create an Event</string>
+    <string name="name_of_event">Name of Event</string>
+    <string name="description_label">Description (50 characters max)</string>
+    <string name="hashtag_event_label">Hashtags to describe event</string>
+    <string name="attendees_max_label">Attendees (number of attendees)</string>
+    <string name="people_whom_network">People who should network</string>
+    <string name="publishButton">Publish</string>
+    <string name="createEvent_error_message">Please create event the</string>
+    <string name="camera_item">Camera</string>
+    <string name="error_with_external_storage">Problem when locating storage on your devices</string>
+    <string name="knode_general_error">Sorry, there was an error</string>
+    <string name="select_video_max_warning">Please select a video which is less than 10MB</string>
+    <string name="knode_selectedvideo_error">There was problem with the file selected</string>
+    <string name="file_overlimit_error">The selected file is to large</string>
+    <string name="title_activity_chat">Chat</string>
+    <string name="choose_contact_message">Choose contact first</string>
+    <string name="error_title">Opps</string>
+    <string name="send_label">Send</string>
+    <string name="error_selecting_file">There was an error with the selected file. Please select another one</string>
+    <string name="success_message_sent">Message was sent!</string>
+    <string name="error_sending_message">There was problem sending the message. Please try again</string>
 
 </resources>
