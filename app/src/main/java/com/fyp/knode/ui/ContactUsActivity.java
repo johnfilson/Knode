@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NavUtils;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -59,11 +60,11 @@ public class ContactUsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
-                    case(0):
+                    case (0):
                         Intent event = new Intent(ContactUsActivity.this, MainActivity.class);
                         startActivity(event);
                         break;
-                    case(1):
+                    case (1):
                         Intent inbox = new Intent(ContactUsActivity.this, EventsListActivity.class);
                         startActivity(inbox);
                         break;
@@ -117,16 +118,25 @@ public class ContactUsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_logout){
-            ParseUser.logOut();
-            //TODO navigateToLogIn();
-        }
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
+        switch (id) {
+            //noinspection SimplifiableIfStatement
+            case R.id.action_logout:
+                if (id == R.id.action_logout) {
+                    ParseUser.logOut();
+                    navigateToLogIn();
+                    return true;
+                }
+                mDrawerLayout.setDrawerListener(mDrawerToggle);
+                if (mDrawerToggle.onOptionsItemSelected(item)) {
+                    return true;
+                }
         }
         return super.onOptionsItemSelected(item);
+    }
+    private void navigateToLogIn() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

@@ -41,6 +41,8 @@ public class CreateEventActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
 
         mPublishButton.setOnClickListener(new View.OnClickListener() {
             @Override

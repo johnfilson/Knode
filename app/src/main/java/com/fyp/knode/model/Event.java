@@ -13,7 +13,7 @@ import java.util.EventObject;
  * Created by Johnny on 15/02/2016.
  */
 @ParseClassName("EventObject")
-public class Event extends ParseObject implements Parcelable {
+public class Event extends ParseObject  {
     private String mIcon;
     private String mLocation;
     private Double mTime;
@@ -63,37 +63,15 @@ public class Event extends ParseObject implements Parcelable {
         return getString("peopleWhomShouldAttend");
     }
     public void setPeopleWhomShouldAttend(String peopleWhomShouldAttend) {
-        put("peopleWhomMayAttend",peopleWhomShouldAttend);
+        put("peopleWhomMayAttend", peopleWhomShouldAttend);
     }
 
 
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mEventName);
-        dest.writeString(mOrganiserName);
+    public static ParseQuery<Event> getQuery() {
+        return ParseQuery.getQuery(Event.class);
     }
 
-    private  Event(Parcel in) {
-        mEventName = in.readString();
-        mOrganiserName = in.readString();
-    }
 
-    public static final Creator<Event> CREATOR = new Creator<Event>() {
-        @Override
-        public Event createFromParcel(Parcel source) {
-            return new Event(source);
-        }
-
-        @Override
-        public Event[] newArray(int size) {
-            return new Event[size];
-        }
-    };
 
     //TODO Time, Location and Icon
     /*public String getLocation() {

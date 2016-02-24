@@ -22,7 +22,17 @@ import com.fyp.knode.ui.CreateEventActivity;
 import com.fyp.knode.ui.EventsListActivity;
 import com.fyp.knode.ui.LoginActivity;
 import com.fyp.knode.ui.Messager;
+import com.fyp.knode.ui.TwitterTimeLineActivity;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
+import com.twitter.sdk.android.Twitter;
+
+import org.json.JSONObject;
+
 
 public class MainActivity extends AppCompatActivity  {
     private static final String TAG =MainActivity.class.getSimpleName();
@@ -33,6 +43,8 @@ public class MainActivity extends AppCompatActivity  {
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
+    private MenuItem mTwitter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +56,8 @@ public class MainActivity extends AppCompatActivity  {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+
+
         mDrawerList = (ListView)findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
@@ -53,6 +67,7 @@ public class MainActivity extends AppCompatActivity  {
         } else {
             Log.i(TAG, currentUser.getUsername());
         }
+
         addDrawerItems();
         setupDrawer();
 
@@ -129,6 +144,11 @@ public class MainActivity extends AppCompatActivity  {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        mTwitter = menu.getItem(0);
+        Log.d(TAG, menu.getItem(0).toString() + "0");
+        Log.d(TAG, menu.getItem(1).toString()+ "1");
+        Log.d(TAG, menu.getItem(2).toString()+ "2");
+        Log.d(TAG, mTwitter.setVisible(true).toString());
         return true;
     }
     @Override
@@ -138,13 +158,22 @@ public class MainActivity extends AppCompatActivity  {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_logout){
-            ParseUser.logOut();
-            navigateToLogIn();
-        }else if(id == R.id.action_add_contacts) {
-            Intent intent = new Intent(this, EditContactsActivity.class);
-            startActivity(intent);
+        switch (id) {
+            case R.id.action_tw_timeline:
+
+                Intent twitter = new Intent(this, TwitterTimeLineActivity.class);
+                startActivity(twitter);
+                break;
+            case R.id.action_logout:
+                ParseUser.logOut();
+                navigateToLogIn();
+                break;
+            case R.id.action_add_contacts:
+                Intent intent = new Intent(this, EditContactsActivity.class);
+                startActivity(intent);
+                break;
         }
+
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -155,9 +184,17 @@ public class MainActivity extends AppCompatActivity  {
     protected void onResume() {
         super.onResume();
         // Logs 'install' and 'app activate' App Events.
+        JSONObject authData = ParseUser.getCurrentUser().getJSONObject("authData");
+        try {
+            if(authData.toString().startsWith("{\"tw")){
+               mTwitter.setVisible(true);
+            }
+        } catch (NullPointerException e){
+
+        }
+
         AppEventsLogger.activateApp(this);
     }
-
 
 
 }

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -49,11 +50,14 @@ public class ChatActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
         getSupportActionBar().setHomeButtonEnabled(true);
 
         mList = (ListView) findViewById(R.id.list);
         mList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
         mUri = getIntent().getData();
         mFileType = getIntent().getExtras().getString(Constants.KEY_FILE_TYPE);
     }
@@ -85,6 +89,16 @@ public class ChatActivity extends AppCompatActivity {
                                     android.R.layout.simple_list_item_checked,
                                     usernames);
                     mList.setAdapter(adapter);
+                    mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            if (mList.getCheckedItemCount() > 0) {
+                                mSendMenuItem.setVisible(true);
+                            } else {
+                                mSendMenuItem.setVisible(false);
+                            }
+                        }
+                    });
                 } else {
                     Log.e(TAG, e.getMessage());
                     AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
@@ -96,16 +110,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
             }
         });
-        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (mList.getCheckedItemCount() > 0) {
-                    mSendMenuItem.setVisible(true);
-                } else {
-                    mSendMenuItem.setVisible(false);
-                }
-            }
-        });
+
     }
 
     @Override
@@ -124,7 +129,7 @@ public class ChatActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         switch (id) {
-            case R.id.sendQueryButton:
+            case R.id.action_chat:
                 ParseObject message = createMessage();
                 if(message == null){
                     AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
@@ -133,7 +138,6 @@ public class ChatActivity extends AppCompatActivity {
                             .setPositiveButton(android.R.string.ok, null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
-
                 }else {
                     send(message);
                     finish();
@@ -165,6 +169,8 @@ public class ChatActivity extends AppCompatActivity {
             String fileName = FileHelper.getFileName(this, mUri, mFileType);
             ParseFile file = new ParseFile(fileName, fileBytes);
             message.put(Constants.KEY_FILE, file);
+
+
             return message;
         }
 
