@@ -3,11 +3,14 @@ package com.fyp.knode.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.parse.Parse;
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.EventObject;
+import java.util.List;
 
 /**
  * Created by Johnny on 15/02/2016.
@@ -18,8 +21,6 @@ public class Event extends ParseObject  {
     private String mLocation;
     private Double mTime;
 
-    private  String mEventName = getEventName();
-    private String mOrganiserName = getOrganisesName();
     public Event() {}
 
 
@@ -67,9 +68,7 @@ public class Event extends ParseObject  {
     }
 
 
-    public static ParseQuery<Event> getQuery() {
-        return ParseQuery.getQuery(Event.class);
-    }
+
 
 
 

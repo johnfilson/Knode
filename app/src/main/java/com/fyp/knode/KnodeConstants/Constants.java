@@ -17,7 +17,15 @@ public final class Constants {
     public  static  final String KEY_FILE_TYPE = "fileType";
 
     public  static  final String KEY_EVENT_NAME = "eventName";
+    public  static  final String KEY_ORGANISER_NAME = "organiserName";
 
+
+
+    public static final String KEY_REAL_NAME    = "real_name";
+    public static final String KEY_SCREEN_NAME  = "screen_name";
+    public static final String KEY_IMAGE_URL    = "image_url";
+    public static final String KEY_TWITTER_ID   = "twitter_id";
+    public static final String KEY_FACEBOOK_ID = "facebook_id";
 
 
 

@@ -26,6 +26,7 @@ public class KnodeApplication extends Application {
     @Override
     public void onCreate(){
         super.onCreate();
+        Parse.enableLocalDatastore(this);
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
         Parse.enableLocalDatastore(this);
