@@ -206,8 +206,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onCompleted(JSONObject object, GraphResponse response) {
                 Log.d("this is my response -->", response.toString());
                 try {
-                    mFullname = response.getJSONObject().getString("first_name") + " " +
-                            response.getJSONObject().getString("last_name");
+                    mFullname = response.getJSONObject().getString("screen_name");
                     Log.d("this is my name ---->", mFullname);
                     mFBEmail = response.getJSONObject().getString("email");
                 }catch (Exception e){
@@ -222,6 +221,8 @@ public class LoginActivity extends AppCompatActivity {
         request.executeAsync();
 
     }
+
+
 
     private boolean isNetworkAvailable() {
         ConnectivityManager manager = (ConnectivityManager)

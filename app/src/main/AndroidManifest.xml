@@ -61,8 +61,8 @@
         <activity
             android:name=".ui.Messager"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".EditContactsActivity"
             android:label="@string/title_activity_edit_friend"
@@ -77,8 +77,8 @@
             android:name=".ui.ContactUsActivity"
             android:label="@string/title_activity_contact_us"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.knode.MainActivity"/>
@@ -87,8 +87,8 @@
             android:name=".ui.EventsListActivity"
             android:label="@string/title_activity_events_list"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.knode.MainActivity"/>
@@ -97,8 +97,8 @@
             android:name=".ui.CreateEventActivity"
             android:label="@string/title_activity_create_event"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.knode.MainActivity"/>
@@ -107,11 +107,16 @@
             android:name=".ui.ChatActivity"
             android:label="@string/title_activity_chat"
             android:parentActivityName=".ui.Messager"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.knode.ui.Messager"/>
+        </activity>
+        <activity
+            android:name=".ui.TwitterTimeLineActivity"
+            android:label="@string/title_activity_twitter_time_line"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 
