@@ -9,28 +9,32 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.fyp.knode.KnodeConstants.Constants;
 import com.fyp.knode.R;
 import com.fyp.knode.model.Event;
+import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by Johnny on 15/02/2016.
  * EventAdapter for the EventList recyclerView
  */
-public class EventAdapter extends ArrayAdapter<Event> {
+public class EventAdapter extends ArrayAdapter<ParseObject> {
     private static final String TAG = EventAdapter.class.getSimpleName();
 
-    public final List<Event> mEvents;
+    public  List<ParseObject> mEvents;
     Context mContext;
     private TextView nameOfEvent;
     private TextView organiserEvent;
     private TextView joinButton;
-    private Event events;
+    private ParseObject events;
 
-    public EventAdapter(Context context, List<Event> events) {
+    public EventAdapter(Context context, List<ParseObject> events) {
         super(context, R.layout.event_list_item, events);
         mContext = context;
         mEvents = events;
@@ -40,7 +44,6 @@ public class EventAdapter extends ArrayAdapter<Event> {
     public View getView(final int position, View convertView, ViewGroup parent) {
         int id = position; //index in the table of events
         View v = convertView;
-        final Event event = mEvents.get(id);
 
         if (v == null) {
             LayoutInflater vi;
@@ -52,29 +55,23 @@ public class EventAdapter extends ArrayAdapter<Event> {
         organiserEvent = (TextView) v.findViewById(R.id.eventOrganiserLabel);
 //        joinButton = (TextView) v.findViewById(R.id.join_label);
 
-        if (nameOfEvent != null && organiserEvent != null) {
-            try {
-                nameOfEvent.setText(ParseObject.createWithoutData(Event.class, event.getEventName()).toString());
-                organiserEvent.setText(ParseObject.createWithoutData(Event.class, event.getOrganisesName()).toString());
-            } catch (NullPointerException e) {
-                Log.d(TAG, e.getMessage());
-            }
+        if (nameOfEvent == null && organiserEvent == null) {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("EventObject");
+            query.selectKeys(Arrays.asList(Constants.KEY_EVENT_NAME, Constants.KEY_ORGANISER_NAME));
+            nameOfEvent.setText(events.getString(Constants.KEY_EVENT_NAME));
+            organiserEvent.setText(events.getString(Constants.KEY_ORGANISER_NAME));
         }
         else {
-            try {
-                ParseQuery<Event> query  = ParseQuery.getQuery("EventObject");
-                events = query.get("objectId");
-            } catch (Exception e) {
+
                 AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
                 dialog.setMessage("Error occured!");
                 dialog.setTitle("Error!");
                 dialog.setPositiveButton("OK", null);
                 dialog.setCancelable(true);
                 dialog.create().show();
-            }
-            if(event != null){
-                nameOfEvent.setText(events.getEventName());
-                organiserEvent.setText(events.getOrganisesName());
+            if(events != null){
+                nameOfEvent.setText(events.getString(Constants.KEY_EVENT_NAME));
+                organiserEvent.setText(events.getString(Constants.KEY_ORGANISER_NAME));
             }
         }
     }
