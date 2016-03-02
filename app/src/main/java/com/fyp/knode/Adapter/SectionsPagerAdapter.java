@@ -7,11 +7,11 @@ package com.fyp.knode.Adapter;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.fyp.knode.Fragments.ContactsFragment;
 import com.fyp.knode.Fragments.MessagerFragment;
+
 
 /* A {@link FragmentPagerAdapter} that returns a fragment corresponding to
         * one of the sections/tabs/pages.
@@ -39,7 +39,7 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new ContactsFragment();
         }
-        return new MessagerFragment();
+        return null;
     }
 
     @Override

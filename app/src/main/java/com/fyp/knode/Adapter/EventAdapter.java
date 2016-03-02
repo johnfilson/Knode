@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fyp.knode.KnodeConstants.Constants;
@@ -29,10 +31,6 @@ public class EventAdapter extends ArrayAdapter<ParseObject> {
 
     public  List<ParseObject> mEvents;
     Context mContext;
-    private TextView nameOfEvent;
-    private TextView organiserEvent;
-    private TextView joinButton;
-    private ParseObject events;
 
     public EventAdapter(Context context, List<ParseObject> events) {
         super(context, R.layout.event_list_item, events);
@@ -41,42 +39,33 @@ public class EventAdapter extends ArrayAdapter<ParseObject> {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        int id = position; //index in the table of events
-        View v = convertView;
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder;
 
-        if (v == null) {
-            LayoutInflater vi;
-            vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.event_list_item, null);
+        //LayoutInflater from xml
+        //convertView also get the Contexts
+        if(convertView == null) {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.event_list_item, null);
+            viewHolder = new ViewHolder();
+            viewHolder.nameOfEvent = (TextView) convertView.findViewById(R.id.eventTitleLabel);
+            viewHolder.organiserEvent = (TextView) convertView.findViewById(R.id.eventOrganiserLabel);
+            viewHolder.joinLabel = (TextView) convertView.findViewById(R.id.join_label);
+            convertView.setTag(viewHolder);
+        }else{
+            viewHolder = (ViewHolder)convertView.getTag();
         }
-    if (id < mEvents.size()) {
-        nameOfEvent = (TextView) v.findViewById(R.id.name_of_event_label);
-        organiserEvent = (TextView) v.findViewById(R.id.eventOrganiserLabel);
-//        joinButton = (TextView) v.findViewById(R.id.join_label);
 
-        if (nameOfEvent == null && organiserEvent == null) {
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("EventObject");
-            query.selectKeys(Arrays.asList(Constants.KEY_EVENT_NAME, Constants.KEY_ORGANISER_NAME));
-            nameOfEvent.setText(events.getString(Constants.KEY_EVENT_NAME));
-            organiserEvent.setText(events.getString(Constants.KEY_ORGANISER_NAME));
-        }
-        else {
-
-                AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-                dialog.setMessage("Error occured!");
-                dialog.setTitle("Error!");
-                dialog.setPositiveButton("OK", null);
-                dialog.setCancelable(true);
-                dialog.create().show();
-            if(events != null){
-                nameOfEvent.setText(events.getString(Constants.KEY_EVENT_NAME));
-                organiserEvent.setText(events.getString(Constants.KEY_ORGANISER_NAME));
-            }
-        }
-    }
-        return v;
-
+        ParseObject event = mEvents.get(position);
+        viewHolder.nameOfEvent.setText(event.getString(Constants.KEY_EVENT_NAME));
+        viewHolder.organiserEvent.setText(event.getString(Constants.KEY_ORGANISER_NAME));
+        return convertView;
     }
 
+    private static class  ViewHolder {
+
+        TextView nameOfEvent;
+        TextView organiserEvent;
+        TextView joinLabel;
+
+    }
 }

@@ -184,8 +184,8 @@ public class MainActivity extends AppCompatActivity  {
     protected void onResume() {
         super.onResume();
         // Logs 'install' and 'app activate' App Events.
-        JSONObject authData = ParseUser.getCurrentUser().getJSONObject("authData");
         try {
+            JSONObject authData = ParseUser.getCurrentUser().getJSONObject("authData");
             if(authData.toString().startsWith("{\"tw")){
                mTwitter.setVisible(true);
             }
