@@ -66,5 +66,6 @@
     <string name="success_message_sent">Message was sent!</string>
     <string name="error_sending_message">There was problem sending the message. Please try again</string>
     <string name="title_activity_twitter_time_line">TwitterTimeLineActivity</string>
+    <string name="title_activity_event_description">EventDescriptionActivity</string>
 
 </resources>

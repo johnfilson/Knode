@@ -71,44 +71,13 @@ public class EventsListActivity extends ListActivity {
                     EventAdapter adapter = new EventAdapter(getListView().getContext(),
                             mEvents);
                     setListAdapter(adapter);
-            Log.d(TAG, mEvents.get(0).getString(Constants.KEY_EVENT_NAME) + mEvents.get(0).getString(Constants.KEY_ORGANISER_NAME));
+                    Log.d(TAG, mEvents.get(0).getString(Constants.KEY_EVENT_NAME) + mEvents.get(0).getString(Constants.KEY_ORGANISER_NAME));
                 } else {
                     Log.e(TAG, e.getMessage());
                 }
 
             }
         });
-
-//        ParseQuery<ParseObject> query = ParseQuery.getQuery("EventObject");
-//        query.selectKeys(Arrays.asList(Constants.KEY_EVENT_NAME, Constants.KEY_ORGANISER_NAME));
-//        try {
-//            events = query.find();
-//            Log.d(TAG, events + "");
-//
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-
-
-//        if(events == null) {
-//            TextView noEventsTextBox = new TextView(this);
-//            noEventsTextBox.setText( "You have not any upcoming events! Add friends to keep in touch with them. ;)");
-//        }else
-//        {
-//            String[] usernames = new String[events.size()];
-//            int i = 0;
-//            for (ParseObject user : events) {
-//                usernames[i] = user.getString(Constants.KEY_EVENT_NAME);
-//                usernames[i] = user.getString(Constants.KEY_ORGANISER_NAME);
-//                i++;
-//            }
-//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, usernames);
-//            setListAdapter(adapter);
-//
-//            Log.d(TAG, events.get(0).getString(Constants.KEY_EVENT_NAME) + events.get(0).getString(Constants.KEY_ORGANISER_NAME));
-//            Log.d(TAG, events.get(1).getString(Constants.KEY_EVENT_NAME) +  events.get(1).getString(Constants.KEY_ORGANISER_NAME));
-//        }
-
     }
 
     @Override

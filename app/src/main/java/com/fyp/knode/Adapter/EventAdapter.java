@@ -1,6 +1,7 @@
 package com.fyp.knode.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fyp.knode.KnodeConstants.Constants;
+import com.fyp.knode.MainActivity;
 import com.fyp.knode.R;
 import com.fyp.knode.model.Event;
+import com.fyp.knode.ui.EventDescriptionActivity;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -51,13 +54,27 @@ public class EventAdapter extends ArrayAdapter<ParseObject> {
             viewHolder.organiserEvent = (TextView) convertView.findViewById(R.id.eventOrganiserLabel);
             viewHolder.joinLabel = (TextView) convertView.findViewById(R.id.join_label);
             convertView.setTag(viewHolder);
+
         }else{
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        ParseObject event = mEvents.get(position);
+        final ParseObject event = mEvents.get(position);
         viewHolder.nameOfEvent.setText(event.getString(Constants.KEY_EVENT_NAME));
         viewHolder.organiserEvent.setText(event.getString(Constants.KEY_ORGANISER_NAME));
+        viewHolder.joinLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                intent.putExtra(Constants.KEY_EVENT_NAME, event.getString(Constants.KEY_EVENT_NAME));
+                intent.putExtra(Constants.KEY_ORGANISER_NAME, event.getString(Constants.KEY_ORGANISER_NAME));
+                intent.putExtra(Constants.KEY_EVENT_HASHTAG, event.getString(Constants.KEY_EVENT_HASHTAG));
+                intent.putExtra(Constants.KEY_EVENT_DESCRIPTION, event.getString(Constants.KEY_EVENT_DESCRIPTION));
+                intent.putExtra(Constants.KEY_EVENT_PEOPLE_INTER, event.getString(Constants.KEY_EVENT_PEOPLE_INTER));
+                mContext.startActivity(intent);
+            }
+        });
+
         return convertView;
     }
 
