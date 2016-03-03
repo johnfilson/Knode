@@ -13,4 +13,104 @@
     tools:context="com.fyp.knode.ui.EventDescriptionActivity"
     tools:showIn="@layout/activity_event_description">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        tools:text="Large Text"
+        android:id="@+id/eventTitle"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="28sp"
+        android:layout_marginLeft="46dp"
+        android:layout_marginStart="46dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Organiser By: "
+        android:id="@+id/organiserTitle"
+        android:layout_marginTop="35dp"
+        android:layout_below="@+id/eventTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        tools:text="Medium Text"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/organiserNameLabel"
+        android:layout_above="@+id/descriptionTitle"
+        android:layout_toRightOf="@+id/organiserTitle"
+        android:layout_toEndOf="@+id/organiserTitle"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        tools:text="Medium Text"
+        android:id="@+id/descriptionLabel"
+        android:textSize="14sp"
+        android:layout_alignTop="@+id/descriptionTitle"
+        android:layout_alignLeft="@+id/organiserNameLabel"
+        android:layout_alignStart="@+id/organiserNameLabel"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Description: "
+        android:id="@+id/descriptionTitle"
+        android:layout_marginTop="39dp"
+        android:layout_below="@+id/organiserTitle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/people_whom_network"
+        android:id="@+id/people_whom_may_attend_title"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Hashtag to for event:"
+        android:id="@+id/hashtagOfEvent_label"
+        android:layout_marginTop="75dp"
+        android:layout_below="@+id/people_whom_may_attend_title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        tools:text="Medium Text"
+        android:textSize="14sp"
+        android:id="@+id/hashTagTextView"
+        android:layout_below="@+id/hashtagOfEvent_label"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:textSize="14sp"
+        android:id="@+id/people_whom_may_attend_label"
+        android:layout_below="@+id/people_whom_may_attend_title"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+
 </RelativeLayout>

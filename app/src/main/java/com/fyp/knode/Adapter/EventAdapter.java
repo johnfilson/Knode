@@ -65,7 +65,7 @@ public class EventAdapter extends ArrayAdapter<ParseObject> {
         viewHolder.joinLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MainActivity.class);
+                Intent intent = new Intent(getContext(), EventDescriptionActivity.class);
                 intent.putExtra(Constants.KEY_EVENT_NAME, event.getString(Constants.KEY_EVENT_NAME));
                 intent.putExtra(Constants.KEY_ORGANISER_NAME, event.getString(Constants.KEY_ORGANISER_NAME));
                 intent.putExtra(Constants.KEY_EVENT_HASHTAG, event.getString(Constants.KEY_EVENT_HASHTAG));
