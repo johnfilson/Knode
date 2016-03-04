@@ -1,21 +1,31 @@
 package com.fyp.knode.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fyp.knode.KnodeConstants.Constants;
+import com.fyp.knode.MainActivity;
 import com.fyp.knode.R;
 import com.fyp.knode.model.Event;
+import com.fyp.knode.ui.EventDescriptionActivity;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,11 +38,9 @@ public class EventAdapter extends ArrayAdapter<ParseObject> {
     private static final String TAG = EventAdapter.class.getSimpleName();
 
     public  List<ParseObject> mEvents;
+    protected ParseRelation<ParseObject> mEventRelation;
+
     Context mContext;
-    private TextView nameOfEvent;
-    private TextView organiserEvent;
-    private TextView joinButton;
-    private ParseObject events;
 
     public EventAdapter(Context context, List<ParseObject> events) {
         super(context, R.layout.event_list_item, events);
@@ -41,42 +49,74 @@ public class EventAdapter extends ArrayAdapter<ParseObject> {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        int id = position; //index in the table of events
-        View v = convertView;
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder;
 
-        if (v == null) {
-            LayoutInflater vi;
-            vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.event_list_item, null);
-        }
-    if (id < mEvents.size()) {
-        nameOfEvent = (TextView) v.findViewById(R.id.name_of_event_label);
-        organiserEvent = (TextView) v.findViewById(R.id.eventOrganiserLabel);
-//        joinButton = (TextView) v.findViewById(R.id.join_label);
+        //LayoutInflater from xml
+        //convertView also get the Contexts
+        if(convertView == null) {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.event_list_item, null);
+            viewHolder = new ViewHolder();
+            viewHolder.nameOfEvent = (TextView) convertView.findViewById(R.id.eventTitleLabel);
+            viewHolder.organiserEvent = (TextView) convertView.findViewById(R.id.eventOrganiserLabel);
+            viewHolder.joinLabel = (TextView) convertView.findViewById(R.id.join_label);
+            convertView.setTag(viewHolder);
 
-        if (nameOfEvent == null && organiserEvent == null) {
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("EventObject");
-            query.selectKeys(Arrays.asList(Constants.KEY_EVENT_NAME, Constants.KEY_ORGANISER_NAME));
-            nameOfEvent.setText(events.getString(Constants.KEY_EVENT_NAME));
-            organiserEvent.setText(events.getString(Constants.KEY_ORGANISER_NAME));
+        }else{
+            viewHolder = (ViewHolder)convertView.getTag();
         }
-        else {
 
-                AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-                dialog.setMessage("Error occured!");
-                dialog.setTitle("Error!");
-                dialog.setPositiveButton("OK", null);
-                dialog.setCancelable(true);
-                dialog.create().show();
-            if(events != null){
-                nameOfEvent.setText(events.getString(Constants.KEY_EVENT_NAME));
-                organiserEvent.setText(events.getString(Constants.KEY_ORGANISER_NAME));
-            }
-        }
+        final ParseObject event = mEvents.get(position);
+            viewHolder.nameOfEvent.setText(event.getString(Constants.KEY_EVENT_NAME));
+            viewHolder.organiserEvent.setText(event.getString(Constants.KEY_ORGANISER_NAME));
+            viewHolder.nameOfEvent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), EventDescriptionActivity.class);
+                    intent.putExtra(Constants.KEY_EVENT_NAME, event.getString(Constants.KEY_EVENT_NAME));
+                    intent.putExtra(Constants.KEY_ORGANISER_NAME, event.getString(Constants.KEY_ORGANISER_NAME));
+                    intent.putExtra(Constants.KEY_EVENT_HASHTAG, event.getString(Constants.KEY_EVENT_HASHTAG));
+                    intent.putExtra(Constants.KEY_EVENT_DESCRIPTION, event.getString(Constants.KEY_EVENT_DESCRIPTION));
+                    intent.putExtra(Constants.KEY_EVENT_PEOPLE_INTER, event.getString(Constants.KEY_EVENT_PEOPLE_INTER));
+                    mContext.startActivity(intent);
+                }
+            });
+            viewHolder.joinLabel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    event.put("joined", ParseUser.getCurrentUser());
+                    event.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e == null) {
+                                Log.d(TAG, "Saved in the background");
+                                return;
+                            } else {
+                                Toast.makeText(mContext,
+                                        "Error saving: " + e.getMessage(),
+                                        Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        }
+                    });
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    intent.putExtra(Constants.KEY_EVENT_NAME, event.getString(Constants.KEY_EVENT_NAME));
+                    intent.putExtra(Constants.KEY_ORGANISER_NAME, event.getString(Constants.KEY_ORGANISER_NAME));
+                    intent.putExtra(Constants.KEY_EVENT_HASHTAG, event.getString(Constants.KEY_EVENT_HASHTAG));
+                    intent.putExtra(Constants.KEY_EVENT_DESCRIPTION, event.getString(Constants.KEY_EVENT_DESCRIPTION));
+                    intent.putExtra(Constants.KEY_EVENT_PEOPLE_INTER, event.getString(Constants.KEY_EVENT_PEOPLE_INTER));
+                    mContext.startActivity(intent);
+                }
+            });
+
+        return convertView;
     }
-        return v;
+
+    private static class  ViewHolder {
+
+        TextView nameOfEvent;
+        TextView organiserEvent;
+        TextView joinLabel;
 
     }
-
 }

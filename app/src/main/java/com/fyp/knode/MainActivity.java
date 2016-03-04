@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.fyp.knode.model.Event;
@@ -33,6 +34,9 @@ import com.twitter.sdk.android.Twitter;
 
 import org.json.JSONObject;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 public class MainActivity extends AppCompatActivity  {
     private static final String TAG =MainActivity.class.getSimpleName();
@@ -44,17 +48,26 @@ public class MainActivity extends AppCompatActivity  {
     private DrawerLayout mDrawerLayout;
     private String mActivityTitle;
     private MenuItem mTwitter;
+    @Bind(R.id.username) TextView mUserName;
+    @Bind(R.id.Bio) TextView mBio;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ButterKnife.bind(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        String username = ParseUser.getCurrentUser().getUsername();
+        mUserName.setText(username);
+
+        mBio.getText().toString();
 
 
 
@@ -184,8 +197,8 @@ public class MainActivity extends AppCompatActivity  {
     protected void onResume() {
         super.onResume();
         // Logs 'install' and 'app activate' App Events.
-        JSONObject authData = ParseUser.getCurrentUser().getJSONObject("authData");
         try {
+            JSONObject authData = ParseUser.getCurrentUser().getJSONObject("authData");
             if(authData.toString().startsWith("{\"tw")){
                mTwitter.setVisible(true);
             }

@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.fyp.knode.Adapter.SectionsPagerAdapter;
@@ -29,6 +30,10 @@ import com.fyp.knode.EditContactsActivity;
 import com.fyp.knode.KnodeConstants.Constants;
 import com.fyp.knode.R;
 import com.fyp.knode.SlidingTabStrip.SlidingTabLayout;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.File;
@@ -37,8 +42,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
-import java.util.logging.SimpleFormatter;
 
 public class Messager extends AppCompatActivity {
 
@@ -59,8 +64,6 @@ public class Messager extends AppCompatActivity {
     int mNumberOfLabs = 2;
     SlidingTabLayout mTabs;
 
-    public static final int MEDIA_TYPE_IMAGE = 4;
-    public static final int MEDIA_TYPE_VIDEO = 5;
     public static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 6;
 
     protected Uri mMediaUri;
@@ -74,7 +77,7 @@ public class Messager extends AppCompatActivity {
                     switch (which) {
                         case 0:
                             Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            mMediaUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+                            mMediaUri = getOutputMediaFileUri(Constants.MEDIA_TYPE_IMAGE);
                             if(mMediaUri == null){
                                 Toast.makeText(Messager.this, R.string.error_with_external_storage, Toast.LENGTH_LONG).show();
                             }else {
@@ -84,7 +87,7 @@ public class Messager extends AppCompatActivity {
                             break;
                         case 1:
                             Intent takeVideo = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                            mMediaUri = getOutputMediaFileUri(MEDIA_TYPE_VIDEO);
+                            mMediaUri = getOutputMediaFileUri(Constants.MEDIA_TYPE_VIDEO);
                             if(mMediaUri == null){
                                 Toast.makeText(Messager.this, R.string.error_with_external_storage, Toast.LENGTH_LONG).show();
                             }else {
@@ -128,9 +131,9 @@ public class Messager extends AppCompatActivity {
 
                         String mediaPath = mediaStrorage.getPath() + File.separator;
 
-                        if(mediaType == MEDIA_TYPE_IMAGE){
+                        if(mediaType == Constants.MEDIA_TYPE_IMAGE){
                             mediafile = new File(mediaPath +"IMG_"+ timestamp + ".jpg");
-                        }else if(mediaType == MEDIA_TYPE_VIDEO) {
+                        }else if(mediaType == Constants.MEDIA_TYPE_VIDEO) {
                             mediafile = new File(mediaPath +"VID_"+ timestamp + ".mp4");
                         }else {
                             return null;
@@ -248,6 +251,7 @@ public class Messager extends AppCompatActivity {
         mTabs.setViewPager(mViewPager);
 
     }
+
 
 
     @Override

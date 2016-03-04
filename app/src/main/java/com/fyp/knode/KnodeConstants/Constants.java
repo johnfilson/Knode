@@ -15,10 +15,15 @@ public final class Constants {
     public  static  final String KEY_SENDER_NAME = "senderName";
     public  static  final String KEY_FILE = "file";
     public  static  final String KEY_FILE_TYPE = "fileType";
+    public  static  final String KEY_CREATE_AT = "createdAt";
+
 
     public  static  final String KEY_EVENT_NAME = "eventName";
     public  static  final String KEY_ORGANISER_NAME = "organiserName";
-
+    public  static  final String KEY_EVENT_HASHTAG = "hashTag";
+    public  static  final String KEY_EVENT_DESCRIPTION = "description";
+    public  static  final String KEY_EVENT_MAX_ATTENDEES = "maxAttend";
+    public  static  final String KEY_EVENT_PEOPLE_INTER = "peopleWhomMayAttend";
 
 
     public static final String KEY_REAL_NAME    = "real_name";
@@ -49,5 +54,6 @@ public final class Constants {
     public static final int FILE_SIZE_LIMIT = 1024 * 1024 * 10;
 
 
-
+    public static final int MEDIA_TYPE_IMAGE = 4;
+    public static final int MEDIA_TYPE_VIDEO = 5;
 }
