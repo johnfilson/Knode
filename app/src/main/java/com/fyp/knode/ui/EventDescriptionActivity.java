@@ -48,7 +48,7 @@ public class EventDescriptionActivity extends AppCompatActivity {
         mNameOfEvent.setText(eventTitle);
         mDescription.setText(description);
         mDescriptionAttendees.setText(descriptionOfAttendees);
-        mHashtag.setText(hashTag);
+        mHashtag.setText("#"+hashTag);
     }
 
 }

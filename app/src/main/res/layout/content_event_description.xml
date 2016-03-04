@@ -34,7 +34,8 @@
         android:layout_marginTop="35dp"
         android:layout_below="@+id/eventTitle"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:textColor="@android:color/black"/>
 
     <TextView
         tools:text="Medium Text"
@@ -67,7 +68,8 @@
         android:layout_marginTop="39dp"
         android:layout_below="@+id/organiserTitle"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -77,7 +79,8 @@
         android:id="@+id/people_whom_may_attend_title"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -88,7 +91,8 @@
         android:layout_marginTop="75dp"
         android:layout_below="@+id/people_whom_may_attend_title"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:textColor="@android:color/black"/>
 
     <TextView
         android:layout_width="wrap_content"

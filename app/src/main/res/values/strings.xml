@@ -49,7 +49,7 @@
     <string name="description_label">Description (50 characters max)</string>
     <string name="hashtag_event_label">Hashtags to describe event</string>
     <string name="attendees_max_label">Attendees (number of attendees)</string>
-    <string name="people_whom_network">People who should network</string>
+    <string name="people_whom_network">People who should network:</string>
     <string name="publishButton">Publish</string>
     <string name="createEvent_error_message">Please create event the</string>
     <string name="camera_item">Camera</string>
