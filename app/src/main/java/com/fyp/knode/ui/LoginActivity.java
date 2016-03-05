@@ -1,7 +1,10 @@
 package com.fyp.knode.ui;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +14,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -68,58 +72,60 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-
-        mSignUpTextView = (TextView) findViewById(R.id.signUpLabel);
-        mSignUpTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent;
-                intent = new Intent(LoginActivity.this, SignUpActivity.class);
-                startActivity(intent);
-            }
-        });
-        mUsername = (EditText)findViewById(R.id.usernameField);
-        mPassword = (EditText)findViewById(R.id.password);
-        mLoginButton= (Button)findViewById(R.id.loginButton);
-        mLoginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String username = mUsername.getText().toString();
-                String password = mPassword.getText() + "" ;
-                username= username.trim();
-                password = password.trim();
-                if (username.isEmpty() || password.isEmpty() ){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                    builder.setMessage(R.string.login_error_message)
-                            .setTitle(R.string.login_error_title)
-                            .setPositiveButton(android.R.string.ok,null);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+        if (isNetworkAvailable()) {
+            mSignUpTextView = (TextView) findViewById(R.id.signUpLabel);
+            mSignUpTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent;
+                    intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                    startActivity(intent);
                 }
-                else{
-                    // Login
-                    setProgressBarIndeterminateVisibility(true);
-                    ParseUser.logInInBackground(username, password, new LogInCallback() {
-                        @Override
-                        public void done(ParseUser User, ParseException e) {
-                            setProgressBarIndeterminateVisibility(false);
-                            if (e == null) {
-                                successfulLogIn();
-                            } else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                                builder.setMessage(e.getMessage())
-                                        .setTitle(R.string.login_error_title)
-                                        .setPositiveButton(android.R.string.ok, null);
-                                AlertDialog dialog = builder.create();
-                                dialog.show();
+            });
+            mUsername = (EditText) findViewById(R.id.usernameField);
+            mPassword = (EditText) findViewById(R.id.password);
+            mLoginButton = (Button) findViewById(R.id.loginButton);
+            mLoginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String username = mUsername.getText().toString();
+                    String password = mPassword.getText() + "";
+                    username = username.trim();
+                    password = password.trim();
+                    if (username.isEmpty() || password.isEmpty()) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                        builder.setMessage(R.string.login_error_message)
+                                .setTitle(R.string.login_error_title)
+                                .setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    } else {
+                        // Login
+                        setProgressBarIndeterminateVisibility(true);
+                        ParseUser.logInInBackground(username, password, new LogInCallback() {
+                            @Override
+                            public void done(ParseUser User, ParseException e) {
+                                setProgressBarIndeterminateVisibility(false);
+                                if (e == null) {
+                                    successfulLogIn();
+                                } else {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                                    builder.setMessage(e.getMessage())
+                                            .setTitle(R.string.login_error_title)
+                                            .setPositiveButton(android.R.string.ok, null);
+                                    AlertDialog dialog = builder.create();
+                                    dialog.show();
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
-            }
-        });
-        twitterLogIn();
-
+            });
+            twitterLogIn();
+        }
+        else {
+            Toast.makeText(this, R.string.no_network_available, Toast.LENGTH_LONG).show();
+        }
     }
 
     private void twitterLogIn() {
@@ -176,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void done(ParseUser user, ParseException e) {
                 Log.i(TAG, user.getUsername());
-                Log.i(TAG, userPermission+ "");
+                Log.i(TAG, userPermission + "");
                 if (user == null) {
                     Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
                 } else if (user.isNew()) {
@@ -200,8 +206,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onCompleted(JSONObject object, GraphResponse response) {
                 Log.d("this is my response -->", response.toString());
                 try {
-                    mFullname = response.getJSONObject().getString("first_name") + " " +
-                            response.getJSONObject().getString("last_name");
+                    mFullname = response.getJSONObject().getString("screen_name");
                     Log.d("this is my name ---->", mFullname);
                     mFBEmail = response.getJSONObject().getString("email");
                 }catch (Exception e){
@@ -217,7 +222,18 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    //Twitter Log on and Sign up
+
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+        boolean isAvailable = false;
+        if(networkInfo != null && networkInfo.isConnected()){
+            isAvailable = true;
+        }
+        return isAvailable;
+    }
 
     
 }

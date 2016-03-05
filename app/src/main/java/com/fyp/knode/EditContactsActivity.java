@@ -52,6 +52,7 @@ public class EditContactsActivity extends ListActivity {
                 setProgressBarIndeterminateVisibility(false);
                 if (e == null) {
                     mUser = contacts;
+                    Log.d(TAG, mUser.toString());
                     String[] usernames = new String[mUser.size()];
                     int i = 0;
                     for (ParseUser user : mUser) {

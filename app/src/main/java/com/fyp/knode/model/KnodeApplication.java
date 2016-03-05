@@ -5,6 +5,7 @@ import android.app.Application;
 import com.facebook.FacebookSdk;
 import com.parse.Parse;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseObject;
 import com.parse.ParseTwitterUtils;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
@@ -25,9 +26,11 @@ public class KnodeApplication extends Application {
     @Override
     public void onCreate(){
         super.onCreate();
+        Parse.enableLocalDatastore(this);
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
         Parse.enableLocalDatastore(this);
+        ParseObject.registerSubclass(Event.class);
         Parse.initialize(this, "hczfRUwNdaPUyaO45MFdp4DIuZFP7nkSoQ8u8Pa0", "HGojUVFCm1NsTMVPIdrly7qpv6YSTmb3DBbYT7X9");
         FacebookSdk.sdkInitialize(getApplicationContext());
         ParseFacebookUtils.initialize(this);

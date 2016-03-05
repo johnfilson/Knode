@@ -4,11 +4,15 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="true"/>
     <application
         android:name=".model.KnodeApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_timeline_black_48dp"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -56,6 +60,7 @@
         <activity
             android:name=".ui.Messager"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".EditContactsActivity"
@@ -71,6 +76,7 @@
             android:name=".ui.ContactUsActivity"
             android:label="@string/title_activity_contact_us"
             android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -80,6 +86,41 @@
             android:name=".ui.EventsListActivity"
             android:label="@string/title_activity_events_list"
             android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.knode.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.CreateEventActivity"
+            android:label="@string/title_activity_create_event"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.knode.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.ChatActivity"
+            android:label="@string/title_activity_chat"
+            android:parentActivityName=".ui.Messager"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.knode.ui.Messager"/>
+        </activity>
+        <activity
+            android:name=".ui.TwitterTimeLineActivity"
+            android:label="@string/title_activity_twitter_time_line"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".ui.EventDescriptionActivity"
+            android:label="@string/title_activity_event_description"
+            android:parentActivityName=".ui.EventsListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
