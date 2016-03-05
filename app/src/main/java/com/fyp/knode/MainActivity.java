@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.fyp.knode.ui.ContactUsActivity;
+import com.fyp.knode.ui.DrawerActivity;
 import com.fyp.knode.ui.EventsListActivity;
 import com.fyp.knode.ui.LoginActivity;
 import com.fyp.knode.ui.Messager;
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity  {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case(0):
-                        Intent event = new Intent(MainActivity.this, EventsListActivity.class);
+                        Intent event = new Intent(MainActivity.this, DrawerActivity.class);
                         startActivity(event);
                     break;
                     case(1):

@@ -37,7 +37,8 @@
         android:layout_marginStart="37dp"
         android:layout_marginTop="33dp"
         android:textColor="@android:color/white"
-        android:textSize="24sp" />
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -71,9 +72,10 @@
         android:ems="10"
         android:id="@+id/enterNameEditText"
         android:layout_below="@+id/yourNameLabel"
-        android:layout_alignLeft="@+id/yourNameLabel"
-        android:layout_alignStart="@+id/yourNameLabel"
-        android:background="@android:color/white" />
+        android:layout_alignLeft="@+id/enterEmailEditText"
+        android:layout_alignStart="@+id/enterEmailEditText"
+        android:background="@drawable/rounded_border_edittext"
+        android:layout_alignEnd="@+id/enterEmailEditText" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -84,7 +86,7 @@
         android:layout_below="@+id/emailLabel"
         android:layout_alignLeft="@+id/emailLabel"
         android:layout_alignStart="@+id/emailLabel"
-        android:background="@android:color/white"
+        android:background="@drawable/rounded_border_edittext"
         android:textSize="20sp" />
 
     <TextView
@@ -107,7 +109,7 @@
         android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/textView"
         android:layout_alignStart="@+id/textView"
-        android:background="@android:color/white"
+        android:background="@drawable/rounded_border_edittext"
         android:textSize="20sp" />
 
     <Button
@@ -116,7 +118,7 @@
         android:text="Send"
         android:id="@+id/sendQueryButton"
         android:layout_marginTop="62dp"
-        android:background="@android:color/background_dark"
+        android:background="@drawable/roundshapebtn"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:layout_below="@+id/enterQueryEditText"

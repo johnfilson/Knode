@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.fyp.knode">
+<manifest package="com.fyp.knode"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name=".model.KnodeApplication"
@@ -14,49 +14,49 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.parse.APPLICATION_ID"
-            android:value="hczfRUwNdaPUyaO45MFdp4DIuZFP7nkSoQ8u8Pa0" />
+            android:value="hczfRUwNdaPUyaO45MFdp4DIuZFP7nkSoQ8u8Pa0"/>
         <meta-data
             android:name="com.parse.CLIENT_KEY"
-            android:value="HGojUVFCm1NsTMVPIdrly7qpv6YSTmb3DBbYT7X9" />
+            android:value="HGojUVFCm1NsTMVPIdrly7qpv6YSTmb3DBbYT7X9"/>
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
+            android:value="@string/facebook_app_id"/>
 
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
             android:name=".ui.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ui.SignUpActivity"
             android:label="@string/title_activity_sign_up"
             android:parentActivityName=".ui.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="5c041efd33511746384da22f00be5f551a5e869c" />
+            android:value="5c041efd33511746384da22f00be5f551a5e869c"/>
 
         <activity
             android:name=".ui.Messager"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".EditContactsActivity"
             android:label="@string/title_activity_edit_friend"
@@ -65,7 +65,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.fyp.knode.MainActivity" />
+                android:value="com.fyp.knode.MainActivity"/>
         </activity>
         <activity
             android:name=".ui.ContactUsActivity"
@@ -74,7 +74,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.fyp.knode.MainActivity" />
+                android:value="com.fyp.knode.MainActivity"/>
         </activity>
         <activity
             android:name=".ui.EventsListActivity"
@@ -83,7 +83,12 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.fyp.knode.MainActivity" />
+                android:value="com.fyp.knode.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.DrawerActivity"
+            android:label="@string/title_activity_drawer"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 
