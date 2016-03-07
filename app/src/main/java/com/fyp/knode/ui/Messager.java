@@ -58,7 +58,6 @@ public class Messager extends AppCompatActivity {
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    private ViewPager mViewPager1;
 
     CharSequence mTitles[] = {"Messager", "My Contacts"};
     int mNumberOfLabs = 2;
