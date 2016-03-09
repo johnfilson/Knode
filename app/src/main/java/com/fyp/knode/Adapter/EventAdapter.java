@@ -66,7 +66,7 @@ public class EventAdapter extends ArrayAdapter<ParseObject> {
             viewHolder = (ViewHolder)convertView.getTag();
         }
 
-        final ParseObject event = mEvents.get(position);
+            final ParseObject event = mEvents.get(position);
             viewHolder.nameOfEvent.setText(event.getString(Constants.KEY_EVENT_NAME));
             viewHolder.organiserEvent.setText(event.getString(Constants.KEY_ORGANISER_NAME));
             viewHolder.nameOfEvent.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +84,7 @@ public class EventAdapter extends ArrayAdapter<ParseObject> {
             viewHolder.joinLabel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    event.put("joined", ParseUser.getCurrentUser());
+                    event.add("joined", ParseUser.getCurrentUser());
                     event.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {

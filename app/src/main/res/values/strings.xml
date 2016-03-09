@@ -33,7 +33,7 @@
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string name="drawer_navi_title">Navigation!</string>
+    <string name="drawer_navi_title">Menu</string>
     <string name="title_activity_contact_us">ContactUsActivity</string>
     <string name="we_can_help_label">We can Help!</string>
     <string name="your_name_label">Your Name</string>
@@ -67,5 +67,8 @@
     <string name="error_sending_message">There was problem sending the message. Please try again</string>
     <string name="title_activity_twitter_time_line">TwitterTimeLineActivity</string>
     <string name="title_activity_event_description">EventDescriptionActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_drawer">DrawerActivity</string>
 
 </resources>

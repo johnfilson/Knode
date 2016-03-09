@@ -46,7 +46,7 @@ public class MessagerAdapter extends ArrayAdapter<ParseObject> {
 
         ParseObject message = mMessages.get(position);
         if(message.getString(Constants.KEY_FILE_TYPE).equals(Constants.TYPE_IMAGE)){
-        viewHolder.iconImageView.setImageResource(R.drawable.ic_action_camera);
+            viewHolder.iconImageView.setImageResource(R.drawable.ic_action_camera);
         }else {
             viewHolder.iconImageView.setImageResource(R.drawable.ic_action_play_over_video);
         }
@@ -58,6 +58,5 @@ public class MessagerAdapter extends ArrayAdapter<ParseObject> {
 
         ImageView iconImageView;
         TextView nameLabel;
-
     }
 }
