@@ -12,7 +12,7 @@
     <application
         android:name=".model.KnodeApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_timeline_black_48dp"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -43,7 +43,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity
             android:name=".ui.LoginActivity"
-            android:label="@string/title_activity_login"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
@@ -63,7 +63,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".EditContactsActivity"
+            android:name=".ui.EditContactsActivity"
             android:label="@string/title_activity_edit_friend"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
@@ -120,16 +120,12 @@
         <activity
             android:name=".ui.EventDescriptionActivity"
             android:label="@string/title_activity_event_description"
+            android:screenOrientation="portrait"
             android:parentActivityName=".ui.EventsListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fyp.knode.MainActivity"/>
-        </activity>
-        <activity
-            android:name=".ui.DrawerActivity"
-            android:label="@string/title_activity_drawer"
-            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

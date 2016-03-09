@@ -11,6 +11,8 @@ import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -22,18 +24,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.fyp.knode.Adapter.SectionsPagerAdapter;
-import com.fyp.knode.EditContactsActivity;
 import com.fyp.knode.KnodeConstants.Constants;
 import com.fyp.knode.R;
 import com.fyp.knode.SlidingTabStrip.SlidingTabLayout;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.File;
@@ -42,7 +38,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class Messager extends AppCompatActivity {
@@ -62,7 +57,8 @@ public class Messager extends AppCompatActivity {
     CharSequence mTitles[] = {"Messager", "My Contacts"};
     int mNumberOfLabs = 2;
     SlidingTabLayout mTabs;
-
+    private ActionBarDrawerToggle mDrawerToggle;
+    private DrawerLayout mDrawerLayout;
     public static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 6;
 
     protected Uri mMediaUri;
@@ -283,8 +279,8 @@ public class Messager extends AppCompatActivity {
                 AlertDialog dialog = builder.create();
                 dialog.show();
                 break;
-
         }
+
 
         return super.onOptionsItemSelected(item);
     }

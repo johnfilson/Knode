@@ -1,7 +1,6 @@
 package com.fyp.knode;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,16 +11,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.fyp.knode.ui.ContactUsActivity;
-import com.fyp.knode.ui.DrawerActivity;
 import com.fyp.knode.ui.CreateEventActivity;
+import com.fyp.knode.ui.EditContactsActivity;
 import com.fyp.knode.ui.EventsListActivity;
 import com.fyp.knode.ui.LoginActivity;
 import com.fyp.knode.ui.Messager;
@@ -58,10 +55,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        String username = ParseUser.getCurrentUser().getUsername();
-        mUserName.setText(username);
-        mBio.getText().toString();
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -72,19 +65,18 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-//        mDrawerList = (ListView)findViewById(R.id.navList);
-//        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 //
         mActivityTitle = getTitle().toString();
         ParseUser currentUser = ParseUser.getCurrentUser();
         if(currentUser== null) {
             navigateToLogIn();
         } else {
+            String username = currentUser.getUsername();
+            mUserName.setText(username);
+            mBio.getText().toString();
             Log.i(TAG, currentUser.getUsername());
         }
-//
-//        addDrawerItems();
-//        setupDrawer();
+
 
     }
 
@@ -130,8 +122,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
 
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -140,55 +130,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     ///TODO DELETE OLD DRAWER VIEW
-//    private void addDrawerItems() {
-//        String[] osArray = { "Event" ,"Message", "Contact Us", "Create Events" };
-//        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
-//        mDrawerList.setAdapter(mAdapter);
-//
-//        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                switch (position) {
-//                    case (0):
-//                        Intent event = new Intent(MainActivity.this, DrawerActivity.class);
-//                        startActivity(event);
-//                        break;
-//                    case (1):
-//                        Intent inbox = new Intent(MainActivity.this, Messager.class);
-//                        startActivity(inbox);
-//                        break;
-//                    case (2):
-//                        Intent contact = new Intent(MainActivity.this, ContactUsActivity.class);
-//                        startActivity(contact);
-//                        break;
-//                    case (3):
-//                        Intent createEvent = new Intent(MainActivity.this, CreateEventActivity.class);
-//                        startActivity(createEvent);
-//                        break;
-//                }
-//            }
-//        });
-//    }
-    private void setupDrawer() {
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.string.drawer_open, R.string.drawer_close)
-        {
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle(R.string.drawer_navi_title);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(mActivityTitle);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        };
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -223,8 +166,8 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onResume() {
+        @Override
+        protected void onResume() {
         super.onResume();
         // Logs 'install' and 'app activate' App Events.
         try {
@@ -233,7 +176,7 @@ public class MainActivity extends AppCompatActivity
                 mTwitter.setVisible(true);
             }
         } catch (NullPointerException e){
-
+        Log.e(TAG, e.getMessage() + "error in on resume");
         }
 
         AppEventsLogger.activateApp(this);

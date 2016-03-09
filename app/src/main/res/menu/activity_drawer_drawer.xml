@@ -11,10 +11,6 @@
             android:icon="@drawable/ic_menu_share"
             android:title="Event(s) List"/>
         <item
-            android:id="@+id/nav_message"
-            android:icon="@drawable/ic_menu_send"
-            android:title="Messager"/>
-        <item
             android:id="@+id/nav_contactus"
             android:icon="@drawable/ic_menu_manage"
             android:title="Contact Us"/>
@@ -34,9 +30,9 @@
                 android:icon="@drawable/ic_menu_share"
                 android:title="Share"/>
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_message"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send"/>
+                android:title="Messager"/>
         </menu>
     </item>
 

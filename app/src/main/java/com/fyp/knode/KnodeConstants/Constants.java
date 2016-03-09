@@ -24,6 +24,8 @@ public final class Constants {
     public  static  final String KEY_EVENT_DESCRIPTION = "description";
     public  static  final String KEY_EVENT_MAX_ATTENDEES = "maxAttend";
     public  static  final String KEY_EVENT_PEOPLE_INTER = "peopleWhomMayAttend";
+    public static final String KEY_JOINED_EVENT = "joined";
+
 
 
     public static final String KEY_REAL_NAME    = "real_name";
