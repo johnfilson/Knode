@@ -5,7 +5,7 @@
     <string name="prompt_username">Username</string>
     <string name="prompt_password">Password</string>
     <string name="login_button_label">Log in</string>
-    <string name="sign_up_button">Register</string>
+    <string name="sign_up_button">Sign Up</string>
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="prompt_email">Email address</string>
     <string name="signup_error_message">Please make sure you enter an username, password and email address!</string>
@@ -70,5 +70,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_drawer">DrawerActivity</string>
+    <string name="title_activity_profile_description">profileDescriptionActivity</string>
 
 </resources>

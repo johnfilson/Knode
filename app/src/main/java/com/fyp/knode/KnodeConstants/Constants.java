@@ -58,4 +58,13 @@ public final class Constants {
 
     public static final int MEDIA_TYPE_IMAGE = 4;
     public static final int MEDIA_TYPE_VIDEO = 5;
+
+
+    public static final int USER_LIMIT = 10;
+    public static final int USER_ROLES = 15;
+
+
+
 }
+
+
