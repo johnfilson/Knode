@@ -40,7 +40,7 @@ import java.util.ArrayList;
 public class LoginActivity extends AppCompatActivity {
 
     private static final  String TAG = LoginActivity.class.getSimpleName() ;
-    protected TextView mSignUpTextView;
+    protected Button mSignUpTextView;
     protected EditText mUsername;
     protected EditText  mPassword;
     protected Button mLoginButton;
@@ -50,21 +50,18 @@ public class LoginActivity extends AppCompatActivity {
     private TwitterLoginButton loginButton;
     ArrayList <String> getUserPermission = new ArrayList();
 
-
-
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
         loginButton.onActivityResult(requestCode, resultCode, data);
 
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         //Facebook persmission
         userPermission.add("user_friends");
         userPermission.add("public_profile");
@@ -73,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         if (isNetworkAvailable()) {
-            mSignUpTextView = (TextView) findViewById(R.id.signUpLabel);
+            mSignUpTextView = (Button) findViewById(R.id.signUpLabel);
             mSignUpTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

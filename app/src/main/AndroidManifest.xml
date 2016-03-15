@@ -9,6 +9,7 @@
     <uses-feature
         android:name="android.hardware.camera2"
         android:required="true"/>
+
     <application
         android:name=".model.KnodeApplication"
         android:allowBackup="true"
@@ -120,8 +121,17 @@
         <activity
             android:name=".ui.EventDescriptionActivity"
             android:label="@string/title_activity_event_description"
-            android:screenOrientation="portrait"
             android:parentActivityName=".ui.EventsListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fyp.knode.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".ui.userDescriptionActivity"
+            android:label="@string/title_activity_profile_description"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
