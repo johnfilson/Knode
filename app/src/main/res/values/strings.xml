@@ -22,14 +22,14 @@
     <string name="view_inbox">Inbox</string>
     <string name="no_messages">No messages</string>
     <string name="no_contacts">Get connect people</string>
-    <string name="add_friends">Edit Friends</string>
+    <string name="add_contacts">Edit Contact(s)</string>
     <string name="title_activity_edit_friend">Edit Friend</string>
     <string name="something_went_wrong">It something has gone wrong</string>
     <string-array name="camera_choices">
         <item>Take picture</item>
         <item>Take video</item>
-        <item>View picture</item>
-        <item>View video</item>
+        <item>Select picture</item>
+        <item>Select video</item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
@@ -38,7 +38,7 @@
     <string name="we_can_help_label">We can Help!</string>
     <string name="your_name_label">Your Name</string>
     <string name="title_activity_events_list">EventsListActivity</string>
-    <string name="tab_title_messager">Messager</string>
+    <string name="tab_title_messager">Inbox</string>
     <string name="tab_title_contact">Contacts</string>
     <string name="no_event_data">There is no event data to load</string>
     <string name="no_network_available">There is no network available</string>

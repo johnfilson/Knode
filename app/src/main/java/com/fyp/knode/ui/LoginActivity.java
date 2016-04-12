@@ -134,7 +134,6 @@ public class LoginActivity extends AppCompatActivity {
                 Twitter.getInstance().core.getSessionManager().getActiveSession();
                 TwitterSession session = result.data;
 
-
                 getUserPermission.add(session.getUserId() + "");
                 getUserPermission.add(session.getUserName());
                 getUserPermission.add(session.getAuthToken() + "");
@@ -156,7 +155,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
-
             }
             @Override
             public void failure(TwitterException exception) {
@@ -218,7 +216,6 @@ public class LoginActivity extends AppCompatActivity {
         request.executeAsync();
 
     }
-
 
 
     private boolean isNetworkAvailable() {

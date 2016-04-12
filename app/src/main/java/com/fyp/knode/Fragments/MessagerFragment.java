@@ -42,7 +42,6 @@ public class MessagerFragment extends android.support.v4.app.ListFragment {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
-                getActivity().setProgressBarIndeterminateVisibility(false);
                 if(e == null) {
                     mMessager = objects;
 

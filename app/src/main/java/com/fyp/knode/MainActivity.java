@@ -119,9 +119,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_create_event) {
             Intent createEvent = new Intent(MainActivity.this, CreateEventActivity.class);
             startActivity(createEvent);
-        } else if (id == R.id.nav_share) {
-
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

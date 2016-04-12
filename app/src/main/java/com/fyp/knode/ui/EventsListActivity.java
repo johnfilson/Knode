@@ -70,6 +70,7 @@ public class EventsListActivity extends ListActivity {
                     }
                     EventAdapter adapter = new EventAdapter(getListView().getContext(),
                             mEvents);
+
                     setListAdapter(adapter);
                     Log.d(TAG, mEvents.get(0).getString(Constants.KEY_EVENT_NAME) + mEvents.get(0).getString(Constants.KEY_ORGANISER_NAME));
                 } else {
